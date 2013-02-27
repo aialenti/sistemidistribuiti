@@ -33,3 +33,25 @@ app.get('/users', user.list);
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+
+
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database : 'test',
+  insecureAuth:true
+});
+
+
+
+connection.connect();
+
+connection.query('SELECT * FROM ciao', function(err, rows, fields) {
+  if (err) throw err;
+
+  console.log('The solution is: ', rows[0].campo);
+});
+
+connection.end();
