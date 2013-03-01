@@ -37,18 +37,4 @@ http.createServer(app).listen(app.get('port'), function(){
 
 
 var mysql      = require('mysql');
-var model = require("./node_modules/application/model.js");
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database : 'sistemidistribuiti',
-  insecureAuth:true
-});
-
-
-connection.connect();
-
-
-
-connection.end();
+var controller = require("./node_modules/application/controller.js");
