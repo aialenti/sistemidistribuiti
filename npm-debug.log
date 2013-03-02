@@ -1,0 +1,56 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'nodejs', '/usr/bin/npm', 'install', 'node-ember' ]
+2 info using npm@1.2.11
+3 info using node@v0.8.20
+4 verbose read json /home/andrea/NetBeansProjects/sistemidistribuiti/package.json
+5 warn package.json application-name@0.0.1 No README.md file found!
+6 verbose read json /home/andrea/NetBeansProjects/sistemidistribuiti/node_modules/express/package.json
+7 verbose read json /home/andrea/NetBeansProjects/sistemidistribuiti/node_modules/ember/package.json
+8 verbose read json /home/andrea/NetBeansProjects/sistemidistribuiti/node_modules/jade/package.json
+9 verbose read json /home/andrea/NetBeansProjects/sistemidistribuiti/node_modules/hbs/package.json
+10 verbose read json /home/andrea/NetBeansProjects/sistemidistribuiti/node_modules/mysql/package.json
+11 verbose read json /home/andrea/NetBeansProjects/sistemidistribuiti/node_modules/application/package.json
+12 verbose from cache /home/andrea/NetBeansProjects/sistemidistribuiti/package.json
+13 verbose readDependencies using package.json deps
+14 verbose cache add [ 'node-ember', null ]
+15 verbose cache add name=undefined spec="node-ember" args=["node-ember",null]
+16 verbose parsed url { pathname: 'node-ember',
+16 verbose parsed url   path: 'node-ember',
+16 verbose parsed url   href: 'node-ember' }
+17 silly lockFile 8ad79b9c-node-ember node-ember
+18 verbose lock node-ember /home/andrea/.npm/8ad79b9c-node-ember.lock
+19 silly lockFile 8ad79b9c-node-ember node-ember
+20 silly lockFile 8ad79b9c-node-ember node-ember
+21 verbose addNamed [ 'node-ember', '' ]
+22 verbose addNamed [ null, '' ]
+23 silly lockFile 72c2854c-node-ember node-ember@
+24 verbose lock node-ember@ /home/andrea/.npm/72c2854c-node-ember.lock
+25 silly addNameRange { name: 'node-ember', range: '', hasData: false }
+26 verbose url raw node-ember
+27 verbose url resolving [ 'https://registry.npmjs.org/', './node-ember' ]
+28 verbose url resolved https://registry.npmjs.org/node-ember
+29 info trying registry request attempt 1 at 14:26:09
+30 http GET https://registry.npmjs.org/node-ember
+31 http 404 https://registry.npmjs.org/node-ember
+32 silly registry.get cb [ 404,
+32 silly registry.get   { server: 'CouchDB/1.2.1 (Erlang OTP/R15B03)',
+32 silly registry.get     date: 'Fri, 01 Mar 2013 13:26:10 GMT',
+32 silly registry.get     'content-type': 'application/json',
+32 silly registry.get     'content-length': '52',
+32 silly registry.get     'cache-control': 'must-revalidate' } ]
+33 silly lockFile 72c2854c-node-ember node-ember@
+34 silly lockFile 72c2854c-node-ember node-ember@
+35 error 404 'node-ember' is not in the npm registry.
+35 error 404 You should bug the author to publish it
+35 error 404
+35 error 404 Maybe try 'npm search ember'
+35 error 404
+35 error 404 Note that you can also install from a
+35 error 404 tarball, folder, or http url, or git url.
+36 error System Linux 3.2.0-37-generic-pae
+37 error command "nodejs" "/usr/bin/npm" "install" "node-ember"
+38 error cwd /home/andrea/NetBeansProjects/sistemidistribuiti
+39 error node -v v0.8.20
+40 error npm -v 1.2.11
+41 error code E404
+42 verbose exit [ 1, true ]
