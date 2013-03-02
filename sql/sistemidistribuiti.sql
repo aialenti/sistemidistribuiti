@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `countries_id`, `email`, `password`) VALUES
+INSERT INTO `users` (`id`, `username`, `countries_id`, `email`, `password`) VALUES
 (1, 'andrea', 5, 'andrea.ialenti@gmail.com', '12345'),
 (2, 'francesco', 8, 'dsad@dsadasdjas.com', '12345'),
 (3, 'mario', 9, 'dsad@ojuieroor.com', '12345');

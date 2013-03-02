@@ -11,11 +11,6 @@ var express = require('express')
 
 var mysql      = require('mysql');
 var controller = require("./node_modules/application/controller.js");
-require('ember');
-MyApp = Ember.Application.create({
-  hi: function() { console.log('Hi! I\'m an app!'); }
-});
-
 
 var app = express();
 
