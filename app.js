@@ -15,7 +15,7 @@ var controller = require("./node_modules/application/controller.js");
 var app = express();
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon());
@@ -31,8 +31,8 @@ app.configure('development', function(){
 });
 
 // dispatcher
-
-
+app.get('/login', controller.doLogin);
+app.get('/', controller.getIndex);
 
 
 http.createServer(app).listen(app.get('port'), function(){
