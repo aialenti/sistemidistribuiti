@@ -1,0 +1,8 @@
+//create match
+http://localhost:3000/login?action=create&home_team=inter&away_team=catania&matchdays_flag=1&matchdays_number=3&matchdays_season=55
+
+//delete match
+http://localhost:3000/login?action=delete&id=5
+
+//update match
+http://localhost:3000/login?action=edit&home_team=inter&away_team=catania&matchdays_flag=1&matchdays_number=3&matchdays_season=55&id=4

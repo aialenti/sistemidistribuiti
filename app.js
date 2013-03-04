@@ -31,7 +31,7 @@ app.configure('development', function(){
 });
 
 // dispatcher
-app.get('/login', controller.doLogin);
+app.get('/login', controller.manageMatch);
 app.get('/', controller.getIndex);
 
 
