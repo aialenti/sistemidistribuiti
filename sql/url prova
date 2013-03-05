@@ -1,8 +1,22 @@
 //create match
-http://localhost:3000/login?action=create&home_team=inter&away_team=catania&matchdays_flag=1&matchdays_number=3&matchdays_season=55
-
+http://localhost:3001/managematch?action=create&home_team=inter&away_team=catania&matchdays_flag=1&matchdays_number=3&matchdays_season=55
 //delete match
-http://localhost:3000/login?action=delete&id=5
-
+http://localhost:3001/managematch?action=delete&id=5
 //update match
-http://localhost:3000/login?action=edit&home_team=inter&away_team=catania&matchdays_flag=1&matchdays_number=3&matchdays_season=55&id=4
+http://localhost:3001/managematch?action=edit&home_team=inter&away_team=catania&matchdays_flag=1&matchdays_number=3&matchdays_season=55&id=4
+
+
+//create matchday
+http://localhost:3001/managematchday?action=create&flag=1&number=8&season=8
+//delete matchday
+http://localhost:3001/managematchday?action=delete&flag=1&number=8&season=8
+//update matchday
+http://localhost:3001/managematchday?action=edit&flag=1&number=8&season=8&new_flag=2&new_number=3&new_season=4
+
+
+//create score
+http://localhost:3001/managescore?action=create&flag=1&time=8&player=totti&match_id=5
+//delete score
+http://localhost:3001/managescore?action=delete&id=1
+//update score
+http://localhost:3001/managescore?action=create&flag=1&time=8&player=totti&match_id=5&id=1
