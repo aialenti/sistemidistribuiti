@@ -42,10 +42,10 @@ app.get('/newUser', controller.createNewUser);
 app.get('/*.(js)', function(req, res){
   res.sendfile("./public/js"+req.url);
 });
-app.get('/*.css', function(req, res){
+app.get('/*.(css)', function(req, res){
   res.sendfile("./public/stylesheets"+req.url);
 });
-app.get('/*.jpg', function(req, res){
+app.get('/*.(jpg|png)', function(req, res){
   res.sendfile("./public/img"+req.url);
 });
 
