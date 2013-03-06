@@ -34,6 +34,18 @@ app.configure('development', function(){
 app.get('/managematch', controller.manageMatch);
 app.get('/managematchday', controller.manageMatchDay);
 app.get('/', controller.getIndex);
+app.get('/login', controller.doLogin);
+
+// dispatching public files (css, js, imgs) requests
+app.get('/*.(js)', function(req, res){
+  res.sendfile("./public/js"+req.url);
+});
+app.get('/*.css', function(req, res){
+  res.sendfile("./public/stylesheets"+req.url);
+});
+app.get('/*.jpg', function(req, res){
+  res.sendfile("./public/img"+req.url);
+});
 
 
 serv = http.createServer(app).listen(app.get('port'), function(){
