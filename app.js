@@ -35,6 +35,8 @@ app.get('/managematch', controller.manageMatch);
 app.get('/managematchday', controller.manageMatchDay);
 app.get('/', controller.getIndex);
 app.get('/login', controller.doLogin);
+app.get('/doLogin', controller.doLogin);
+app.get('/newUser', controller.createNewUser);
 
 // dispatching public files (css, js, imgs) requests
 app.get('/*.(js)', function(req, res){
