@@ -19,4 +19,11 @@ http://localhost:3001/managescore?action=create&flag=1&time=8&player=totti&match
 //delete score
 http://localhost:3001/managescore?action=delete&id=1
 //update score
-http://localhost:3001/managescore?action=create&flag=1&time=8&player=totti&match_id=5&id=1
+http://localhost:3001/managescore?action=edit&flag=1&time=8&player=totti&match_id=5&id=1
+
+//create team
+http://localhost:3001/manageteam?action=create&name=juventus
+//delete team
+http://localhost:3001/manageteam?action=delete&id=1
+//update team
+http://localhost:3001/manageteam?action=edit&name=inter&id=1

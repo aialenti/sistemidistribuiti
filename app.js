@@ -12,6 +12,7 @@ var express = require('express')
 var mysql      = require('mysql');
 var controller = require("./node_modules/application/controller.js");
 
+
 var app = express();
 
 app.configure(function(){
@@ -31,12 +32,28 @@ app.configure('development', function(){
 });
 
 // dispatcher
+
+//Modifica, creazione e eliminazione di entità
 app.get('/managematch', controller.manageMatch);
 app.get('/managematchday', controller.manageMatchDay);
+app.get('/managescore', controller.manageScore);
+app.get('/manageteam', controller.manageTeam);
+
+
+
+
+app.get("/",controller.getList)
+
+//Home page
 app.get('/', controller.getIndex);
+//Login
 app.get('/login', controller.doLogin);
 app.get('/doLogin', controller.doLogin);
+//Creazione utente
 app.get('/newUser', controller.createNewUser);
+
+//Accesso alla pagina amministratore
+app.get('/admin',controller.getAdminPage);
 
 // dispatching public files (css, js, imgs) requests
 app.get('/*.(js)', function(req, res){
@@ -56,10 +73,12 @@ serv = http.createServer(app).listen(app.get('port'), function(){
 
 var io = require('socket.io').listen(serv);
 
+//Reperimento delle informazioni sul database
+
 io.sockets.on('connection', function (socket) {
-  console.log("dsadas")
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
+  console.log("dsadsasssssss")
+  socket.on('getList', function (data) {
+    controller.getList(data,socket);
   });
 });
+
