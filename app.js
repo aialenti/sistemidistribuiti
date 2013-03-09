@@ -82,8 +82,17 @@ io.sockets.on('connection', function (socket) {
   socket.on('createSeason', function (data) {
     controller.seasonYear(data,socket);
   });
-  socket.on('getHowManyTeams', function (data) {
-    controller.getHowManyTeams(data,socket);
+  socket.on('getChampionshipModalData', function (data) {
+    controller.getChampionshipModalData(data,socket);
+  });
+  socket.on('addTeam', function (data) {
+    data.action = "create";
+    controller.manageTeam(data,socket);
+  });
+  socket.on('removeTeam', function (data) {
+    data.action = "delete";
+    console.log(data)
+    controller.manageTeam(data,socket);
   });
 });
 

@@ -14,13 +14,25 @@ $('#mytab a').click(function (e) {
     var rows = data.rows;
     switch(table){
       case "championship":
-        $("#teams tbody tr").remove()
+        $("#teamsTable tr").remove()
+        var row = "";
         for(var i=0;i<rows.length;i++){
-          table_row="<tr><td>"+rows[i].id+"</td><td>"+rows[i].name+"</td></tr>"
-          $("#teams tbody ").append(table_row).css({
-            cursor:"pointer"
-          });
+          row='<tr><td>'+rows[i].name+'</td><td><a id=team-'+rows[i].id+' href="#deleteConfirmation" role="button" class="btn-mini btn-danger removeTeam" data-toggle="modal">Remove</a></td></tr>';
+          $("#teamsTable").append(row);
         }
+        $(".removeTeam").click(function(e){
+          var id = $(this).attr("id").replace("team-","");
+          var data = new Object;
+          data.id = id;
+          $("#removeTeam-confirmation").click(function(e){
+            socket.emit("removeTeam",data);
+            socket.on("teamRemoved",function(){
+              $("#deleteConfirmation").modal("hide");
+              socket.emit("getList",{list:"championship"});
+            });
+          });
+        });
+  
         break;
       default:
         break;
@@ -30,15 +42,16 @@ $('#mytab a').click(function (e) {
 });
 
 $(document).ready(function(){
-    var socket = io.connect('http://localhost');
+  var socket = io.connect('http://localhost');
   $(".table tbody tr").css({
     cursor:"pointer"
   });
   $("#createSeason-btn").click(function(){
-    socket.emit('getHowManyTeams');
-    socket.on("hereHowManyTeams",function(nrTeams){
-      console.log(nrTeams);
-      $("#nrTeams").html(nrTeams[0].count)
+    socket.emit('getChampionshipModalData');
+    socket.on("hereChampionshipModalData",function(teams){
+      $("#selectTeams tr").remove();
+      for(var i=0;i<teams.length;i++)
+        $("#selectTeams").append('<tr><td><input type="checkbox"></td><td> '+teams[i].name+"</td></tr>");
     });
   });
   $("#createSeason").click(function(){
@@ -46,10 +59,18 @@ $(document).ready(function(){
       list: $("#seasonYear").value()
     });
   });
+  $("#addTeam").click(function(e){
+    var data = new Object;
+    data.name = $("#teamName").val();
+    socket.emit("addTeam",data);
+  });
   
+  socket.on("teamAdded",function(){
+    socket.emit("getList",{list:"championship"});
+    $("#teamName").val("");
+    $("#addTeam-return>img").attr("src","/ok_icon.png")
+    $("#addTeam-return>span").html("Team added")
+    $("#addTeam-return").fadeIn().delay(1000).fadeOut();
+    
+  });
 });
-
-//Unire matches, match days e teams in "gestisci campionato"
-//si devono poter inserire le squadre, creare automaticamente la stagione e poter inserire delle accoppiate
-//(gia create in automatico dal software), solo la giornata (numero, fuoricasa in casa e stagione). 
-//Bisogna scegliere la stagione e sotto devono comparire le accoppiate.
