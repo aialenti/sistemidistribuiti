@@ -13,44 +13,69 @@
         <li class="active">
           <a href="#users">Manage Users</a>
         </li>
-        <li><a href="#matches">Manage Matches</a></li>
-        <li><a href="#matchdays">Manage Match Days</a></li>
-        <li><a href="#teams">Manage Teams</a></li>
+        <li><a href="#championship">Manage Championship</a></li>
         <li><a href="#scores">Manage Scores</a></li>
       </ul>
       <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade active in" id="users">
+        </div>
+        <div class="tab-pane fade" id="championship">
+          <div class="span2">
+            <label class="control-label" for="selectSeason">Select Season</label>
+            <h3>Season</h3>
+            <select id="selectSeason">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+            <a id="createSeason-btn" href="#createSeasonModal" role="button" class="btn" data-toggle="modal">Create Season</a>
+            <h3>Teams</h3>
+            <select multiple="multiple">
+              
+            </select>
+          </div>
+          <div class="span3">
+            <table class="table table-striped span2 table-hover">
+              <thead>
+                <tr>
+                  <th>Home/Away</th>
+                  <th>Number</th>
+                  <th>Season</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>  
+          </div>
 
-
-        </div>
-        <div class="tab-pane fade" id="matches">
-        </div>
-        <div class="tab-pane fade" id="matchdays">
-        </div>
-        <div class="tab-pane fade" id="teams">
-          <table class="table table-striped span2 table-hover">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
         <div class="tab-pane fade" id="scores">
         </div>
       </div>
+      <!-- Modal -->
+      <div id="createSeasonModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="myModalLabel">Create Season</h3>
+        </div>
+        <div class="modal-body">
+          <input id="seasonYear" type="text" placeholder="Insert the last year of the season">
+          <br/>
+          Note: You have <strong><span id="nrTeams"></span></strong> teams in your database. Remember to update the
+          teams, before creating the season.
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+          <button id="createSeason" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
     </div>
-    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/jquery.js"></script>
     <script src="/bootstrap.min.js"></script>
     <script src="/bootstrap-tab.js"></script>
     <script src="/admin.js"></script>
-    
+
   </body>
 </html>

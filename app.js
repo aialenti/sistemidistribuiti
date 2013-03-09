@@ -76,9 +76,14 @@ var io = require('socket.io').listen(serv);
 //Reperimento delle informazioni sul database
 
 io.sockets.on('connection', function (socket) {
-  console.log("dsadsasssssss")
   socket.on('getList', function (data) {
     controller.getList(data,socket);
+  });
+  socket.on('createSeason', function (data) {
+    controller.seasonYear(data,socket);
+  });
+  socket.on('getHowManyTeams', function (data) {
+    controller.getHowManyTeams(data,socket);
   });
 });
 
