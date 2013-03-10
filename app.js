@@ -80,7 +80,7 @@ io.sockets.on('connection', function (socket) {
     controller.getList(data,socket);
   });
   socket.on('createSeason', function (data) {
-    controller.seasonYear(data,socket);
+    controller.createSeason(data,socket);
   });
   socket.on('getChampionshipModalData', function (data) {
     controller.getChampionshipModalData(data,socket);
