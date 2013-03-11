@@ -1,0 +1,48 @@
+body {
+	/*padding-top: 40px;*/
+	padding-bottom: 40px;
+	background-color: #ffffff;
+}
+.team {
+	font-size: 22px;
+	text-align: center;
+	padding-top: 10px;
+	margin-left: 0px;
+}
+#drah {
+	padding-left: 0px;
+	margin-left: 0px;
+}
+#dsowag {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+#inner {
+	margin-left: 0px;
+}
+#collapseOne {
+	margin-left: 0px;
+}
+.scudo {
+	margin-bottom: 10px;
+	text-align: center;
+}
+.score {
+	font-size: 14px;
+	text-align: center;
+	padding-top: 10px;
+	margin-left: 0px;
+}
+.dropdown-menu {
+	padding: 10px 10px 10px 10px;
+}
+.btn-primary {
+	width: 100%;
+}
+#loading {
+	display: none;
+	text-align: center;
+}
+#loginerror {
+	display: none;
+}

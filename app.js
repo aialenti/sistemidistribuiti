@@ -42,13 +42,15 @@ app.get('/manageteam', controller.manageTeam);
 
 
 
-app.get("/",controller.getList)
+//app.get("/",controller.getList)
 
 //Home page
-app.get('/', controller.getIndex);
+app.get('/', function(req,res){
+  res.sendfile('./views/matchview.html');
+});
 //Login
-app.get('/login', controller.doLogin);
-app.get('/doLogin', controller.doLogin);
+//app.get('/login', controller.doLogin);
+//app.get('/doLogin', controller.doLogin);
 //Creazione utente
 app.get('/newUser', controller.createNewUser);
 
@@ -62,7 +64,7 @@ app.get('/*.(js)', function(req, res){
 app.get('/*.(css)', function(req, res){
   res.sendfile("./public/stylesheets"+req.url);
 });
-app.get('/*.(jpg|png)', function(req, res){
+app.get('/*.(jpg|png|gif)', function(req, res){
   res.sendfile("./public/img"+req.url);
 });
 
@@ -85,5 +87,8 @@ io.sockets.on('connection', function (socket) {
   socket.on('getHowManyTeams', function (data) {
     controller.getHowManyTeams(data,socket);
   });
+  socket.on('doLogin', function (data) {
+    controller.doLogin(data,socket);
+  })
 });
 
