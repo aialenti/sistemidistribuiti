@@ -21,55 +21,87 @@
         </div>
         <div class="tab-pane fade" id="championship">
           <div class="span2">
-            <label class="control-label" for="selectSeason">Select Season</label>
-            <h3>Season</h3>
+            <h3>Seasons</h3>
             <select id="selectSeason">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+
             </select>
-            <a id="createSeason-btn" href="#createSeasonModal" role="button" class="btn" data-toggle="modal">Create Season</a>
+            <a id="createSeason-btn" href="#createSeasonModal" role="button" class="btn" data-toggle="modal">Create Season +</a>
             <h3>Teams</h3>
-            <select multiple="multiple">
-              
-            </select>
+            <a id="addteam-btn" href="#addTeamModal" role="button" class="btn" data-toggle="modal">Add Team +</a>
+            <br/>
+            <br/>
+            <table id="teamsTable" class="table table-striped">
+              <tbody>
+
+              </tbody>
+            </table>
           </div>
           <div class="span3">
-            <table class="table table-striped span2 table-hover">
-              <thead>
-                <tr>
-                  <th>Home/Away</th>
-                  <th>Number</th>
-                  <th>Season</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>  
+
           </div>
 
         </div>
         <div class="tab-pane fade" id="scores">
         </div>
       </div>
-      <!-- Modal -->
+      <!-- Modals -->
       <div id="createSeasonModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h3 id="myModalLabel">Create Season</h3>
         </div>
         <div class="modal-body">
-          <input id="seasonYear" type="text" placeholder="Insert the last year of the season">
-          <br/>
-          Note: You have <strong><span id="nrTeams"></span></strong> teams in your database. Remember to update the
-          teams, before creating the season.
+          <div class="span2">
+            <input id="seasonYear" type="text" placeholder="Insert the last year of the season">
+          </div>
+          <div class="span2">
+            <table id="selectTeams" class="table table-striped span2 table-hover">
+              <tbody>
+              </tbody>
+            </table>  
+          </div>
         </div>
         <div class="modal-footer">
           <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-          <button id="createSeason" class="btn btn-primary">Save changes</button>
+          <button id="createSeason" class="btn btn-primary">Create</button>
         </div>
+      </div>
+    </div>
+    <div id="addTeamModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Add Team</h3>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="span2">
+            <input id="teamName" type="text" placeholder="Insert the name of the team"><br/><br/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span2 hide" id="addTeam-return">
+            <img width="25" src="" alt="add team return"/> 
+            <span></span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button id="addTeam" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+    <div id="deleteConfirmation" class="modal hide fade">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Modal header</h3>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to remove the team</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <a id="removeTeam-confirmation" href="#" class="btn btn-danger">Remove</a>
+        <input type="hidden" id="teamToRemove"/>
       </div>
     </div>
     <script src="/jquery.js"></script>
