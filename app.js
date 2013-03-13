@@ -46,7 +46,7 @@ app.get('/manageteam', controller.manageTeam);
 
 //Home page
 app.get('/', function(req,res){
-  res.sendfile('./views/matchview.html');
+  res.render('matchview');
 });
 
 //Creazione utente
