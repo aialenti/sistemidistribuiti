@@ -11,9 +11,12 @@ var express = require('express')
 
 var mysql      = require('mysql');
 var controller = require("./node_modules/application/controller.js");
-
+var cookie = require("cookie");
 
 var app = express();
+
+//Session store - Memorystore is OK for development only since it can't store persistent data
+var MemStore = express.session.MemoryStore;
 
 app.configure(function(){
   app.set('port', 3001);
@@ -23,8 +26,10 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.cookieParser());  
+  app.use(express.session({secret: 'secret', key: 'express_sid', store: MemStore({reapInterval: 60000 * 10})}));
+  app.use(app.router);
 });
 
 app.configure('development', function(){
@@ -55,8 +60,14 @@ app.get('/', function(req,res){
 app.get('/newUser', controller.createNewUser);
 
 //Accesso alla pagina amministratore
-app.get('/admin',controller.getAdminPage);
-
+app.get('/admin', function(req,res) {
+  console.log("COOOOOKIE~~~" + req.cookies.express_sid);
+  var auth = controller.authorize(req.cookies.express_sid);
+  if (auth)
+    controller.getAdminPage(req,res);
+  else
+    res.sendfile('./views/matchview.html');
+});
 // dispatching public files (css, js, imgs) requests
 app.get('/*.(js)', function(req, res){
   res.sendfile("./public/js"+req.url);
@@ -74,6 +85,35 @@ serv = http.createServer(app).listen(app.get('port'), function(){
 });
 
 var io = require('socket.io').listen(serv);
+var handshake = new Object;
+
+//Socket.io authorization protocol
+io.configure(function() {
+  io.set('authorization', function (handshakeData, accept) {
+    handshake = handshakeData;
+    if (handshakeData.headers.cookie) {
+      handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
+      handshakeData.sessionID = cookie.parse(handshakeData.cookie['express_sid'], 'secret');
+      if (handshakeData.cookie['express_sid'] == handshakeData.sessionID) {
+        return accept('Cookie is invalid.', false);
+        console.log("****AUTH****");
+      }
+    } else {
+      return accept('No cookie transmitted.', false);
+    } 
+    accept(null, true);
+    console.log("----AUTHEND-- "+ handshakeData.headers.cookie);
+  });
+});
+
+io.of('/admin').authorization(function (handshakeData, callback) {
+  console.log("ACCESSING NAMESPACE /admin");
+  console.dir(handshakeData);
+  handshakeData.foo = 'baz';
+  callback(null, true);
+}).on('connection', function (socket) {
+  console.dir(socket.handshake.foo);
+});
 
 //Reperimento delle informazioni sul database
 
@@ -97,6 +137,9 @@ io.sockets.on('connection', function (socket) {
     controller.manageTeam(data,socket);
   });
   socket.on('doLogin', function (data) {
+    data.sessionid = cookie.parse(handshake.headers.cookie);
+    console.log(data.sessionid.express_sid);
+    //controller.doLogin(handshakeData.cookie,data,socket);
     controller.doLogin(data,socket);
   })
 });

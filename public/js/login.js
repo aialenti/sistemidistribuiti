@@ -4,7 +4,6 @@ $(document).ready(function(){
 		$("#login").css("display", "none");
 		var user = $("#user").val();
 		var password = $("#password").val();
-		console.log(user + "---" + password);
 		var socket = io.connect('http://localhost:3001');
 		socket.emit("doLogin", {
 			"user": user,
@@ -19,5 +18,9 @@ $(document).ready(function(){
 			$("#loginerror").html(data);
 			$("#login").css("display", "block");		
 		});
+		socket.on('successfullogin', function (data) {
+			console.log(data);
+			window.location.replace("/admin");
+		})
 	});
 });
