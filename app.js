@@ -44,30 +44,24 @@ app.get('/managematchday', controller.manageMatchDay);
 app.get('/managescore', controller.manageScore);
 app.get('/manageteam', controller.manageTeam);
 
-
-
-
-//app.get("/",controller.getList)
-
 //Home page
 app.get('/', function(req,res){
   res.sendfile('./views/matchview.html');
 });
-//Login
-//app.get('/login', controller.doLogin);
-//app.get('/doLogin', controller.doLogin);
+
 //Creazione utente
 app.get('/newUser', controller.createNewUser);
 
 //Accesso alla pagina amministratore
 app.get('/admin', function(req,res) {
-  console.log("COOOOOKIE~~~" + req.cookies.express_sid);
+  //Verifica autorizzazione
   var auth = controller.authorize(req.cookies.express_sid);
   if (auth)
     controller.getAdminPage(req,res);
   else
-    res.sendfile('./views/matchview.html');
+    res.redirect('/');
 });
+
 // dispatching public files (css, js, imgs) requests
 app.get('/*.(js)', function(req, res){
   res.sendfile("./public/js"+req.url);

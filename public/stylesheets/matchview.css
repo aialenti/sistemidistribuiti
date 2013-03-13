@@ -1,7 +1,7 @@
 body {
 	/*padding-top: 40px;*/
 	padding-bottom: 40px;
-	background-color: #ffffff;
+	background: url("/grass.jpg");
 }
 .team {
 	font-size: 22px;
@@ -20,7 +20,7 @@ body {
 #inner {
 	margin-left: 0px;
 }
-#collapseOne {
+.collapsed {
 	margin-left: 0px;
 }
 .scudo {
@@ -45,4 +45,20 @@ body {
 }
 #loginerror {
 	display: none;
+}
+footer {
+	text-align: center;
+}
+#footdiv {
+	width: 300px;
+	margin: auto;
+	background-color: #f0f0f0;
+	border-radius: 3px;
+	padding-top: 3px;
+}
+#selectSeason, #selectDay {
+	margin-top: 7px
+}
+.brand {
+	margin-top: 2px;
 }

@@ -1,3 +1,7 @@
+for (var i=0; i<10; i++) {
+	$('#collapse'+i).collapse("hide");
+}
+
 $(document).ready(function(){
 	$("#loginform").submit(function() {
 		$("#loginerror").css("display", "none");
