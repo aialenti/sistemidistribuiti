@@ -1,0 +1,48 @@
+/* 
+    Document   : admin
+    Created on : 14-mar-2013, 15.24.48
+    Author     : andrea
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.team {
+  margin-left: 0;
+  text-align: center;
+  padding-top: 10px;
+  margin-left: 0px;
+}
+
+.accordion-heading {
+  margin-left:0;
+}
+
+.collapsed {
+  margin-left:0;
+}
+
+.scudo {
+  margin-bottom:10px;
+}
+
+.time {
+  width: 10px;
+  margin-right: 10px;
+}
+
+.player {
+  width: 100px;
+}
+
+.floatl {
+  float:left;
+}
+
+.clr {
+  clear: both;
+}
+
+.separator_scores {
+  width: 280px;
+  height: 1px;
+}

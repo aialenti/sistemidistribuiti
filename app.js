@@ -137,7 +137,7 @@ io.sockets.on('connection', function (socket) {
     controller.doLogin(data,socket);
   });
   socket.on("getAllTheSeason",function(data){
-    controller.getAllTheSeason(data.season)
+    controller.getAllTheSeason(data,socket);
   });
 });
 

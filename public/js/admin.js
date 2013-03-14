@@ -106,10 +106,24 @@ $(document).ready(function(){
     //quì va l'emit dell'evento necessario a reperire le info e creare l'interfaccia 
     //necessarie alla modifica della stagione.
     socket.emit("getAllTheSeason",{
-      season: $("#selecSeason").val()
+      season: $("#selectSeason").val()
     });
-    socket.on("hereAllTheSeason",function(){
-      
+    socket.on("hereAllTheSeason",function(data){
+      /*Il server restituisce tutta la stagione selezionata.
+       * Viene creata una ulteriore select che racchiude il numero di giornate.
+       * Si seleziona la giornata, vengono visualizzate le partite di quella giornata*/
+      console.log(data);
+      var accordion = '<h3>Scores</h3><div class="row accordion" id="accordion££accordion_nr££"><div class="span8 well accordion-group"><div class="row accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion££accordion_nr££" href="#collapse££accordion_nr££"><div class="span1 scudo"> <img src="/££home_team_shield££.png" alt="" /></div><p class="span2 team">££home_team££</p><p class="span2 team" id="scores">££score££</p><p class="span2 team">££away_team££</p><div class="span1 scudo"> <img src="/££away_team_shield££.png" alt="" /></div>			</a></div><div id="collapse££accordion_nr££" class="collapsed accordion-body collapse in span8"><div class="accordion-inner" id="inner_accordion_££accordion_nr££"><div class="floatl"><input id="home_team_time" class="time" type="text"></div><div class="floatl"><input id="home_team_player" class="player" type="text"></div><div class="floatl separator_scores"></div><div class="floatl"><input id="away_team_time" class="time" type="text"></div><div class="floatl "><input id="away_team_player" class="player" type="text"></div><div class="clr"></div></div></div></div></div>';
+      var tmp;
+      for(var i=0;i<data.length;i++){
+        tmp = accordion;
+        tmp = tmp.replace(/\£\£accordion_nr\£\£/g,data[i].id);
+        tmp = tmp.replace("££home_team££",data[i].home_team_name);
+        tmp = tmp.replace("££away_team££",data[i].away_team_name);
+        tmp = tmp.replace("££home_team_shield££",data[i].home_team);
+        tmp = tmp.replace("££away_team_shield££",data[i].away_team);
+        $("#accordions").append(tmp);
+      }
       });
   });
 });

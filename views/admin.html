@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/admin.css" rel="stylesheet" media="screen">
     <script src="/socketio.js"></script>
   </head>
   <body>
@@ -14,34 +15,32 @@
           <a href="#users">Manage Users</a>
         </li>
         <li><a href="#championship">Manage Championship</a></li>
-        <li><a href="#scores">Manage Scores</a></li>
       </ul>
       <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade active in" id="users">
         </div>
         <div class="tab-pane fade" id="championship">
-          <div class="span2">
-            <h3>Seasons</h3>
-            <select id="selectSeason">
+          <div class="row">
+            <div class="span2">
+              <h3>Seasons</h3>
+              <select id="selectSeason">
 
-            </select>
-            <a id="createSeason-btn" href="#createSeasonModal" role="button" class="btn" data-toggle="modal">Create Season +</a>
-            <h3>Teams</h3>
-            <a id="addteam-btn" href="#addTeamModal" role="button" class="btn" data-toggle="modal">Add Team +</a>
-            <br/>
-            <br/>
-            <table id="teamsTable" class="table table-striped">
-              <tbody>
+              </select>
+              <a id="createSeason-btn" href="#createSeasonModal" role="button" class="btn" data-toggle="modal">Create Season +</a>
+              <h3>Teams</h3>
+              <a id="addteam-btn" href="#addTeamModal" role="button" class="btn" data-toggle="modal">Add Team +</a>
+              <br/>
+              <br/>
+              <table id="teamsTable" class="table table-striped">
+                <tbody>
 
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
+            <div id="accordions" class="span7 offset1">
+              <h3>Scores</h3>
+            </div>
           </div>
-          <div class="span3">
-
-          </div>
-
-        </div>
-        <div class="tab-pane fade" id="scores">
         </div>
       </div>
       <!-- Modals -->
@@ -66,48 +65,47 @@
           <button id="createSeason" class="btn btn-primary">Create</button>
         </div>
       </div>
-    </div>
-    <div id="addTeamModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3>Add Team</h3>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="span2">
-            <input id="teamName" type="text" placeholder="Insert the name of the team"><br/><br/>
+      <div id="addTeamModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3>Add Team</h3>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="span2">
+              <input id="teamName" type="text" placeholder="Insert the name of the team"><br/><br/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span2 hide" id="addTeam-return">
+              <img width="25" src="" alt="add team return"/> 
+              <span></span>
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="span2 hide" id="addTeam-return">
-            <img width="25" src="" alt="add team return"/> 
-            <span></span>
-          </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+          <button id="addTeam" class="btn btn-primary">Add</button>
         </div>
       </div>
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-        <button id="addTeam" class="btn btn-primary">Add</button>
+      <div id="deleteConfirmation" class="modal hide fade">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3>Modal header</h3>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to remove the team</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+          <a id="removeTeam-confirmation" href="#" class="btn btn-danger">Remove</a>
+          <input type="hidden" id="teamToRemove"/>
+        </div>
       </div>
-    </div>
-    <div id="deleteConfirmation" class="modal hide fade">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Modal header</h3>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to remove the team</p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-        <a id="removeTeam-confirmation" href="#" class="btn btn-danger">Remove</a>
-        <input type="hidden" id="teamToRemove"/>
-      </div>
-    </div>
-    <script src="/jquery.js"></script>
-    <script src="/bootstrap.min.js"></script>
-    <script src="/bootstrap-tab.js"></script>
-    <script src="/admin.js"></script>
+      <script src="/jquery.js"></script>
+      <script src="/bootstrap.min.js"></script>
+      <script src="/bootstrap-tab.js"></script>
+      <script src="/admin.js"></script>
 
   </body>
 </html>
