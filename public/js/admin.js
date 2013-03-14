@@ -105,5 +105,11 @@ $(document).ready(function(){
   $("#selectSeason").change(function(){
     //quì va l'emit dell'evento necessario a reperire le info e creare l'interfaccia 
     //necessarie alla modifica della stagione.
-  })
+    socket.emit("getAllTheSeason",{
+      season: $("#selecSeason").val()
+    });
+    socket.on("hereAllTheSeason",function(){
+      
+      });
+  });
 });

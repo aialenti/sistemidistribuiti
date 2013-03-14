@@ -94,5 +94,8 @@ io.sockets.on('connection', function (socket) {
     console.log(data)
     controller.manageTeam(data,socket);
   });
+  socket.on("getAllTheSeason",function(data){
+    controller.getAllTheSeason(data.season)
+  });
 });
 
