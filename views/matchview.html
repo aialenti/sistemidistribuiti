@@ -1,127 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Sign in</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+  <meta charset="utf-8">
+  <title>Serie A Live</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Le styles -->
-    <link href="/bootstrap.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 40px;
-        padding-bottom: 40px;
-        background-color: #ffffff;
-      }
-      
-      .form-signin {
-        max-width: 350px;
-        padding: 19px 29px 29px;
-        margin: 0 auto 20px;
-        background-color: #f5f5f5;
-        border: 1px solid #e5e5e5;
-        -webkit-border-radius: 5px;
-           -moz-border-radius: 5px;
-                border-radius: 5px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-                box-shadow: 0 1px 2px rgba(0,0,0,.05);
-      }
+  <!-- Le styles -->
+  <link href="/bootstrap.css" rel="stylesheet">
+  <link href="/matchview.css" rel="stylesheet">
+  <script src="/socketio.js"></script>
+</head>
 
-      .form-signin input[type="text"],
-      .form-signin input[type="password"] {
-        font-size: 14px;
-        height: auto;
-      }
-      
-      #btt {
-      	width: 100%;
-      }
-      .team {
-      	font-size: 22px;
-      	text-align: center;
-      	padding-top: 10px;
-      	margin-left: 0px;
-      }
-      
-      #drah {
-      	padding-left: 0px;
-      	margin-left: 0px;
-      }
+<body>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="#"><!--<img src="/ball.png" width="24px">-->  Serie A Live</a>
+      <ul class="nav pull-left">
+        <li class="pull-left">
+          <span class="navbar-text">Season:</span>
+          <select class="span2" id="selectSeason">
+            <option>2013/14</option>
+          </select>
+          <span class="navbar-text">  Day:</span>
+          <select class="span2" id="selectDay">
+            <option>1</option>
+          </select>
+        </li>
+      </ul>
+      <ul class="nav pull-right">
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          Admin Login
+          <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <h4>Log In</h4>
+            <p>Insert your credentials</p>
+            <form id="loginform" action="javascript: ">
+              <input type="text" placeholder="username" name="user" id="user">
+              <input type="password" placeholder="password" name="password" id="password">
+              <div id="loginerror"></div>
+              <div id="loading"><img src="/spin.gif"></div>
+              <button class="btn btn-primary" id="login" type="submit">Log me in</button>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
 
-	  #dsowag {
-	  	padding-left: 0px;
-	  	padding-right: 0px;
-	  }
-	  #inner {
-	  	margin-left: 0px;
-	  }
-	  #collapseOne {
-	  	margin-left: 0px;
-	  }
-	  .scudo {
-	  	margin-bottom: 10px;
-	  	text-align: center;
-	  }
-	  .score {
-	  	font-size: 14px;
-	  	text-align: center;
-	  	padding-top: 10px;
-	  	margin-left: 0px;
-	  }
-    </style>
+  <div class="container">
 
-  </head>
+    <div class="row accordion" id="accordion0">
+      <div class="span10 offset1 well accordion-group" id="dsowag">
+        <div class="row accordion-heading" id="drah">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion0" href="#collapse0">
+           <div class="span1 scudo"> <img src="/2.png" alt="" /></div>
+           <p class="span3 team">A.S. Roma</p>
+           <p class="span2 team">1 - 2</p>
+           <p class="span3 team">Genoa F.C.</p>
+           <div class="span1 scudo"> <img src="/1.png" alt="" /></div>			
+         </a>
+       </div>
+       <div id="collapse0" class="collapsed accordion-body collapse in span10">
+        <div class="row accordion-inner" id="inner">
+         <div class="span1"></div>
+         <div class="span3 offset1 score">7' Totti</div>
+         <div class="span2 score"></div>
+         <div class="span3 offset2 score">14' Borriello</div>
+         <div class="span1"></div>
+       </div>
+     </div>
+   </div>
+ </div>
 
-  <body>
-  <div class="navbar"></div>
+<div class="row accordion" id="accordion1">
+      <div class="span10 offset1 well accordion-group" id="dsowag">
+        <div class="row accordion-heading" id="drah">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse1">
+           <div class="span1 scudo"> <img src="/2.png" alt="" /></div>
+           <p class="span3 team">A.S. Roma</p>
+           <p class="span2 team">1 - 2</p>
+           <p class="span3 team">Genoa F.C.</p>
+           <div class="span1 scudo"> <img src="/1.png" alt="" /></div>      
+         </a>
+       </div>
+       <div id="collapse1" class="collapsed accordion-body collapse in span10">
+        <div class="row accordion-inner" id="inner">
+         <div class="span1"></div>
+         <div class="span3 offset1 score">7' Totti</div>
+         <div class="span2 score"></div>
+         <div class="span3 offset2 score">14' Borriello</div>
+         <div class="span1"></div>
+       </div>
+       <div class="row accordion-inner" id="inner">
+         <div class="span1"></div>
+         <div class="span3 offset1 score"></div>
+         <div class="span2 score"></div>
+         <div class="span3 offset2 score">24' Borriello</div>
+         <div class="span1"></div>
+       </div>
+     </div>
+   </div>
+ </div>
 
-    <div class="container">
-    <div class="row accordion" id="accordion2">
-    <div class="span10 offset1 well accordion-group" id="dsowag">
-    <div class="row accordion-heading" id="drah">
-		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-			<div class="span1 scudo"> <img src="/roma.png" alt="" /></div>
-			<p class="span3 team">A.S. Roma</p>
-			<p class="span2 team">1 - 2</p>
-			<p class="span3 team">Genoa F.C.</p>
-			<div class="span1 scudo"> <img src="/genoa.png" alt="" /></div>			
-		</a>
-	</div>
-	<div id="collapseOne" class="accordion-body collapse in span10">
-		<div class="row accordion-inner" id="inner">
-			<div class="span1"></div>
-			<div class="span3 offset1 score">7' Totti</div>
-			<div class="span2 score"></div>
-			<div class="span3 offset2 score">14' Borriello</div>
-			<div class="span1"></div>
-		</div>
-	</div>
-	</div>
-	</div>
-	</div>
-    </div> <!-- /container -->
+ <div class="row accordion" id="accordion2">
+      <div class="span10 offset1 well accordion-group" id="dsowag">
+        <div class="row accordion-heading" id="drah">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse2">
+           <div class="span1 scudo"> <img src="/2.png" alt="" /></div>
+           <p class="span3 team">A.S. Roma</p>
+           <p class="span2 team">1 - 2</p>
+           <p class="span3 team">Genoa F.C.</p>
+           <div class="span1 scudo"> <img src="/1.png" alt="" /></div>      
+         </a>
+       </div>
+       <div id="collapse2" class="collapsed accordion-body collapse in span10">
+        <div class="row accordion-inner" id="inner">
+         <div class="span1"></div>
+         <div class="span3 offset1 score">7' Totti</div>
+         <div class="span2 score"></div>
+         <div class="span3 offset2 score">14' Borriello</div>
+         <div class="span1"></div>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <div class="row accordion" id="accordion3">
+      <div class="span10 offset1 well accordion-group" id="dsowag">
+        <div class="row accordion-heading" id="drah">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapse3">
+           <div class="span1 scudo"> <img src="/2.png" alt="" /></div>
+           <p class="span3 team">A.S. Roma</p>
+           <p class="span2 team">1 - 2</p>
+           <p class="span3 team">Genoa F.C.</p>
+           <div class="span1 scudo"> <img src="/1.png" alt="" /></div>      
+         </a>
+       </div>
+       <div id="collapse3" class="collapsed accordion-body collapse in span10">
+        <div class="row accordion-inner" id="inner">
+         <div class="span1"></div>
+         <div class="span3 offset1 score">7' Totti</div>
+         <div class="span2 score"></div>
+         <div class="span3 offset2 score">14' Borriello</div>
+         <div class="span1"></div>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <div class="row accordion" id="accordion4">
+      <div class="span10 offset1 well accordion-group" id="dsowag">
+        <div class="row accordion-heading" id="drah">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapse4">
+           <div class="span1 scudo"> <img src="/2.png" alt="" /></div>
+           <p class="span3 team">A.S. Roma</p>
+           <p class="span2 team">1 - 2</p>
+           <p class="span3 team">Genoa F.C.</p>
+           <div class="span1 scudo"> <img src="/1.png" alt="" /></div>      
+         </a>
+       </div>
+       <div id="collapse4" class="collapsed accordion-body collapse in span10">
+        <div class="row accordion-inner" id="inner">
+         <div class="span1"></div>
+         <div class="span3 offset1 score">7' Totti</div>
+         <div class="span2 score"></div>
+         <div class="span3 offset2 score">14' Borriello</div>
+         <div class="span1"></div>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <div class="row accordion" id="accordion5">
+      <div class="span10 offset1 well accordion-group" id="dsowag">
+        <div class="row accordion-heading" id="drah">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" href="#collapse5">
+           <div class="span1 scudo"> <img src="/2.png" alt="" /></div>
+           <p class="span3 team">A.S. Roma</p>
+           <p class="span2 team">1 - 2</p>
+           <p class="span3 team">Genoa F.C.</p>
+           <div class="span1 scudo"> <img src="/1.png" alt="" /></div>      
+         </a>
+       </div>
+       <div id="collapse5" class="collapsed accordion-body collapse in span10">
+        <div class="row accordion-inner" id="inner">
+         <div class="span1"></div>
+         <div class="span3 offset1 score">7' Totti</div>
+         <div class="span2 score"></div>
+         <div class="span3 offset2 score">14' Borriello</div>
+         <div class="span1"></div>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <div class="row accordion" id="accordion6">
+      <div class="span10 offset1 well accordion-group" id="dsowag">
+        <div class="row accordion-heading" id="drah">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion6" href="#collapse6">
+           <div class="span1 scudo"> <img src="/2.png" alt="" /></div>
+           <p class="span3 team">A.S. Roma</p>
+           <p class="span2 team">1 - 2</p>
+           <p class="span3 team">Genoa F.C.</p>
+           <div class="span1 scudo"> <img src="/1.png" alt="" /></div>      
+         </a>
+       </div>
+       <div id="collapse6" class="collapsed accordion-body collapse in span10">
+        <div class="row accordion-inner" id="inner">
+         <div class="span1"></div>
+         <div class="span3 offset1 score">7' Totti</div>
+         <div class="span2 score"></div>
+         <div class="span3 offset2 score">14' Borriello</div>
+         <div class="span1"></div>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <div class="row accordion" id="accordion7">
+      <div class="span10 offset1 well accordion-group" id="dsowag">
+        <div class="row accordion-heading" id="drah">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion7" href="#collapse7">
+           <div class="span1 scudo"> <img src="/2.png" alt="" /></div>
+           <p class="span3 team">A.S. Roma</p>
+           <p class="span2 team">1 - 2</p>
+           <p class="span3 team">Genoa F.C.</p>
+           <div class="span1 scudo"> <img src="/1.png" alt="" /></div>      
+         </a>
+       </div>
+       <div id="collapse7" class="collapsed accordion-body collapse in span10">
+        <div class="row accordion-inner" id="inner">
+         <div class="span1"></div>
+         <div class="span3 offset1 score">7' Totti</div>
+         <div class="span2 score"></div>
+         <div class="span3 offset2 score">14' Borriello</div>
+         <div class="span1"></div>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <div class="row accordion" id="accordion8">
+      <div class="span10 offset1 well accordion-group" id="dsowag">
+        <div class="row accordion-heading" id="drah">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion8" href="#collapse8">
+           <div class="span1 scudo"> <img src="/2.png" alt="" /></div>
+           <p class="span3 team">A.S. Roma</p>
+           <p class="span2 team">1 - 2</p>
+           <p class="span3 team">Genoa F.C.</p>
+           <div class="span1 scudo"> <img src="/1.png" alt="" /></div>      
+         </a>
+       </div>
+       <div id="collapse8" class="collapsed accordion-body collapse in span10">
+        <div class="row accordion-inner" id="inner">
+         <div class="span1"></div>
+         <div class="span3 offset1 score">7' Totti</div>
+         <div class="span2 score"></div>
+         <div class="span3 offset2 score">14' Borriello</div>
+         <div class="span1"></div>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <div class="row accordion" id="accordion9">
+      <div class="span10 offset1 well accordion-group" id="dsowag">
+        <div class="row accordion-heading" id="drah">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion9" href="#collapse9">
+           <div class="span1 scudo"> <img src="/2.png" alt="" /></div>
+           <p class="span3 team">A.S. Roma</p>
+           <p class="span2 team">1 - 2</p>
+           <p class="span3 team">Genoa F.C.</p>
+           <div class="span1 scudo"> <img src="/1.png" alt="" /></div>      
+         </a>
+       </div>
+       <div id="collapse9" class="collapsed accordion-body collapse in span10">
+        <div class="row accordion-inner" id="inner">
+         <div class="span1"></div>
+         <div class="span3 offset1 score">7' Totti</div>
+         <div class="span2 score"></div>
+         <div class="span3 offset2 score">14' Borriello</div>
+         <div class="span1"></div>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <footer>
+  <div id="footdiv">
+    <p>&copy; 2013 FA & IA &middot; <a href="about.html">About</a> &middot; <a href="#">Back to top</a></p>
+  </div>
+ </footer>
+
+</div> <!-- /container -->
 
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/jquery.js"></script>
     <script src="/bootstrap.js"></script>
-    <script src="/bootstrap-transition.js"></script>
-    <script src="/bootstrap-alert.js"></script>
-    <script src="/bootstrap-modal.js"></script>
-    <script src="/bootstrap-dropdown.js"></script>
-    <script src="/bootstrap-scrollspy.js"></script>
-    <script src="/bootstrap-tab.js"></script>
-    <script src="/bootstrap-tooltip.js"></script>
-    <script src="/bootstrap-popover.js"></script>
-    <script src="/bootstrap-button.js"></script>
-    <script src="/bootstrap-collapse.js"></script>
-    <script src="/bootstrap.js/bootstrap-collapse.js"></script>
-    <script src="/bootstrap-carousel.js"></script>
-    <script src="/bootstrap-typeahead.js"></script>
+    <script src="/login.js"></script>
 
   </body>
-</html>
+  </html>

@@ -1,0 +1,64 @@
+body {
+	/*padding-top: 40px;*/
+	padding-bottom: 40px;
+	background: url("/grass.jpg");
+}
+.team {
+	font-size: 22px;
+	text-align: center;
+	padding-top: 10px;
+	margin-left: 0px;
+}
+#drah {
+	padding-left: 0px;
+	margin-left: 0px;
+}
+#dsowag {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+#inner {
+	margin-left: 0px;
+}
+.collapsed {
+	margin-left: 0px;
+}
+.scudo {
+	margin-bottom: 10px;
+	text-align: center;
+}
+.score {
+	font-size: 14px;
+	text-align: center;
+	padding-top: 10px;
+	margin-left: 0px;
+}
+.dropdown-menu {
+	padding: 10px 10px 10px 10px;
+}
+.btn-primary {
+	width: 100%;
+}
+#loading {
+	display: none;
+	text-align: center;
+}
+#loginerror {
+	display: none;
+}
+footer {
+	text-align: center;
+}
+#footdiv {
+	width: 300px;
+	margin: auto;
+	background-color: #f0f0f0;
+	border-radius: 3px;
+	padding-top: 3px;
+}
+#selectSeason, #selectDay {
+	margin-top: 7px
+}
+.brand {
+	margin-top: 2px;
+}
