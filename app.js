@@ -90,7 +90,6 @@ io.configure(function() {
       handshakeData.sessionID = cookie.parse(handshakeData.cookie['express_sid'], 'secret');
       if (handshakeData.cookie['express_sid'] == handshakeData.sessionID) {
         return accept('Cookie is invalid.', false);
-        console.log("****AUTH****");
       }
     } else {
       return accept('No cookie transmitted.', false);
@@ -98,15 +97,6 @@ io.configure(function() {
     accept(null, true);
     console.log("----AUTHEND-- "+ handshakeData.headers.cookie);
   });
-});
-
-io.of('/admin').authorization(function (handshakeData, callback) {
-  console.log("ACCESSING NAMESPACE /admin");
-  console.dir(handshakeData);
-  handshakeData.foo = 'baz';
-  callback(null, true);
-}).on('connection', function (socket) {
-  console.dir(socket.handshake.foo);
 });
 
 //Reperimento delle informazioni sul database
@@ -140,8 +130,6 @@ io.sockets.on('connection', function (socket) {
   });
   socket.on('doLogin', function (data) {
     data.sessionid = cookie.parse(handshake.headers.cookie);
-    console.log(data.sessionid.express_sid);
-    //controller.doLogin(handshakeData.cookie,data,socket);
     controller.doLogin(data,socket);
   });
   socket.on("getAllTheSeason",function(data){
@@ -149,6 +137,9 @@ io.sockets.on('connection', function (socket) {
   });
   socket.on("getMatchday",function(data){
     controller.getMatchday(data,socket);
-  })
+  });
+  socket.on("getSeasons",function (data) {
+    controller.getSeasons(data,socket);
+  });
 });
 
