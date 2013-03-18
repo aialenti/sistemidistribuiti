@@ -112,8 +112,8 @@ io.of('/admin').authorization(function (handshakeData, callback) {
 //Reperimento delle informazioni sul database
 
 io.sockets.on('connection', function (socket) {
-  socket.on('getList', function (data) {
-    controller.getList(data,socket);
+  socket.on('getChampionship', function (data) {
+    controller.getChampionship(data,socket);
   });
   socket.on('createSeason', function (data) {
     controller.createSeason(data,socket);
@@ -124,6 +124,14 @@ io.sockets.on('connection', function (socket) {
   socket.on('addTeam', function (data) {
     data.action = "create";
     controller.manageTeam(data,socket);
+  });
+  socket.on('addScore', function (data) {
+    data.action = "create";
+    controller.manageScore(data,socket);
+  });
+  socket.on('deleteScore', function (data) {
+    data.action = "delete";
+    controller.manageScore(data,socket);
   });
   socket.on('removeTeam', function (data) {
     data.action = "delete";
@@ -139,5 +147,8 @@ io.sockets.on('connection', function (socket) {
   socket.on("getAllTheSeason",function(data){
     controller.getAllTheSeason(data,socket);
   });
+  socket.on("getMatchday",function(data){
+    controller.getMatchday(data,socket);
+  })
 });
 
