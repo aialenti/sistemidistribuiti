@@ -136,9 +136,13 @@ var selectMatchdayChange = function(data,socket){
       tmp = tmp.replace("££score££",home_score+" - "+away_score);
       $("#accordions").append(tmp);
       for(var k=1;k<scores_array.length;k++){
+            if(scores_array[k]['time'] == 0)
+              scores_array[k]['time'] = "";
         if($("#goal"+data[i].id+"_"+k).attr("id") != "goal"+data[i].id+"_"+k)
           if(scores_array[k]['home_away'] == "0"){
             $("#inner_accordion_"+data[i].id+" .home_team_scores").prepend(scores_array[k]['template']);
+            if(scores_array[k]['time'] == 0)
+              scores_array[k]['time'] = "";
             $("#home_team_time"+data[i].id+"_"+k).val(scores_array[k]['time']);
             $("#home_team_player"+data[i].id+"_"+k).val(scores_array[k]['player']);
           }
@@ -193,14 +197,17 @@ var selectMatchdayChange = function(data,socket){
         }
         var player = $("#"+ha+"_team_player"+last_part).val();
         var time = $("#"+ha+"_team_time"+last_part).val();
-        console.log(player)
-        console.log(time)
-        console.log(last_part)
         if((player == "" && time=="") || (player == undefined && time == undefined)){
           socket.emit("deleteScore",data);
         }
         else{
-        // TODO: UPDATE
+          data.player = false;
+          data.time = false;
+          if(player != undefined && player != "")
+            data.player = player;
+          if(time != undefined && time != "")
+            data.time = time;
+          socket.emit("updateScore",data);
         }
       }
       

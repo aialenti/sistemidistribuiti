@@ -123,6 +123,10 @@ io.sockets.on('connection', function (socket) {
     data.action = "delete";
     controller.manageScore(data,socket);
   });
+  socket.on('updateScore', function (data) {
+    data.action = "update";
+    controller.manageScore(data,socket);
+  });
   socket.on('removeTeam', function (data) {
     data.action = "delete";
     console.log(data)
@@ -138,8 +142,6 @@ io.sockets.on('connection', function (socket) {
   socket.on("getMatchday",function(data){
     controller.getMatchday(data,socket);
   });
-  socket.on("getSeasons",function (data) {
-    controller.getSeasons(data,socket);
-  });
+
 });
 
