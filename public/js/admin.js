@@ -56,6 +56,7 @@ $(document).ready(function(){
   });
   socket.on("seasonCreated",function(){
     socket.emit('getChampionship');
+    seasonCreated();
   });
   socket.on("hereTheScores",function(data){
     hereTheScores(data,socket);
@@ -77,5 +78,35 @@ $(document).ready(function(){
   });
   socket.on("updateScoresView",function(data){
     selectMatchdayChange(data,socket);
+  });
+});
+
+//errors handling
+$(document).ready(function(){
+  var socket = io.connect('http://localhost');
+  socket.on("errorOnSentData",function(data){
+    console.log(data)
+    switch(data.caller){
+      case "createSeason":
+        var group = $("#seasonYear").closest(".control-group");
+        var error = "";
+        if(data.year.message == "no_four_digits"){ //anno stagione errato
+          $(group).addClass("error");
+          error += "The year must be a four digits number<br/>";
+        }
+        if(data.year.message.match(/needed/)){ //anno stagione errato
+          $(group).addClass("error");
+          error += "You must insert an year<br/>";
+        }
+        if(data.list.message=="empty_list"){
+          error += "You have to choose at least two teams<br/>";
+
+        }
+        $(group).find(".help-inline").html(error);
+        break;
+      default:
+        break;
+    }
+    
   });
 });
