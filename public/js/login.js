@@ -18,38 +18,57 @@ $(document).ready(function(){
 		};
 	});
 
+	var matchesdata;
+
 	$("#selectSeason").change(function(){
-	    socket.emit("getAllTheSeason",{
-	    	season: $("#selectSeason").val()
-	    });
-	    socket.on("hereAllTheSeason",function(data){
-	    	$("#selectDay").empty();
-	    	var insertedDays = [];
-	    	insertedDays.push({ day: "0", flag: "0"});
-	    	for (var i=0; i<data.length; i++) {
-	    		var already = false;
-	    		var datas = {
-	    			day: data[i].matchdays_number,
-	    			flag: data[i].matchdays_flag
-	    		};
-	    		for (var j=0; j<insertedDays.length; j++) {
-	    			console.log("Comparing ID " + insertedDays[j].day + "-" + insertedDays[j].flag + " with day " + datas.day + "-" + datas.flag);
-	    			if (insertedDays[j].day == datas.day) {
-	    				if (insertedDays[j].flag == datas.flag) {
-	    					console.log("already in");
-	    					already = true; 
-	    				}
-	    			}
-	    		}
-	    		if (!already) {
-	    			insertedDays.push({day: datas.day, flag: datas.flag});
-	    			console.log(insertedDays);
-	    			$('#selectDay')
-	    				.append($('<option>', { "value" : datas.day+"-"+datas.flag })
-	    					.text(datas.day+"-"+datas.flag));
-	    		}
-	    	};
-	    });
+		socket.emit("getAllTheSeason",{
+			season: $("#selectSeason").val()
+		});
+		socket.on("hereTheScores",function(data){
+			matchesdata = data; 
+			$("#selectDay").empty();
+			var insertedDays = [];
+			insertedDays.push({ day: "0", flag: "0"});
+			for (var i=0; i<matchesdata.length; i++) {
+				var already = false;
+				var datas = {
+					day: matchesdata[i].matchdays_number,
+					flag: matchesdata[i].matchdays_flag
+				};
+				for (var j=0; j<insertedDays.length; j++) {
+					console.log("Comparing ID " + insertedDays[j].day + "-" + insertedDays[j].flag + " with day " + datas.day + "-" + datas.flag);
+					if (insertedDays[j].day == datas.day) {
+						if (insertedDays[j].flag == datas.flag) {
+							console.log("already in");
+							already = true; 
+						}
+					}
+				}
+				if (!already) {
+					insertedDays.push({day: datas.day, flag: datas.flag});
+					console.log(insertedDays);
+					$('#selectDay')
+					.append($('<option>', { "value" : datas.day+"-"+datas.flag })
+						.text(datas.day+"-"+datas.flag));
+				}
+			};
+		});
+	});
+
+	$("#selectDay").change(function(){
+		var day = $("#selectDay").val();
+		var seasonn = $("#selectSeason").val();
+		socket.emit("getMatchday", {
+			matchday_number: day.substring(0,1),
+			season: seasonn
+		})
+		socket.on("hereSelectMatchdayChange", function(data){
+			console.log("DATALENGTH---"+data[1].length);
+			var matcheslist = [];
+			for (var i=0; i<data[1].length; i++) {
+				
+			}
+		})
 	});
 
 	$("#loginform").submit(function() {
