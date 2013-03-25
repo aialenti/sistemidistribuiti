@@ -9,15 +9,15 @@ body {
 	padding-top: 10px;
 	margin-left: 0px;
 }
-#drah {
+.drah {
 	padding-left: 0px;
 	margin-left: 0px;
 }
-#dsowag {
+.dsowag {
 	padding-left: 0px;
 	padding-right: 0px;
 }
-#inner {
+.inner {
 	margin-left: 0px;
 }
 .collapsed {
@@ -32,6 +32,7 @@ body {
 	text-align: center;
 	padding-top: 10px;
 	margin-left: 0px;
+	padding-left: 10px;
 }
 .dropdown-menu {
 	padding: 10px 10px 10px 10px;
