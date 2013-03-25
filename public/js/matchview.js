@@ -18,17 +18,23 @@ $(document).ready(function(){
 		};
 	});
 
+	socket.emit("getLatestMatch");
+
+	$(window).load(function() { $("#selectSeason").trigger("change", 2035) });
+	
 	var matchesdata;
 
-	$("#selectSeason").change(function(){
+	$("#selectSeason").change(function(e,d){
+		d = d || $(this).val();
 		socket.emit("getAllTheSeason",{
-			season: $("#selectSeason").val()
+			//season: $("#selectSeason").val()
+			season: d
 		});
 		socket.on("hereTheScores",function(data){
 			matchesdata = data; 
 			$("#selectDay").empty();
 			var insertedDays = [];
-			insertedDays.push({ day: "0", flag: "0"});
+			insertedDays.push({ day: "-1", flag: "-1"});
 			for (var i=0; i<matchesdata.length; i++) {
 				var already = false;
 				var datas = {
@@ -47,27 +53,36 @@ $(document).ready(function(){
 				if (!already) {
 					insertedDays.push({day: datas.day, flag: datas.flag});
 					console.log(insertedDays);
+					dayd = (datas.day % (matchesdata.length/4))+1;
+					console.log("DAY-- " + datas.day + " LEN-- " +matchesdata.length);
+					var leg = ((datas.flag === 0) ? "Andata" : "Ritorno");
 					$('#selectDay')
 					.append($('<option>', { "value" : datas.day+"-"+datas.flag })
-						.text(datas.day+"-"+datas.flag));
+						.text(dayd + "° " + leg));
 				}
 			};
 		});
 	});
 
-	$("#selectDay").change(function(){
-		var day = $("#selectDay").val();
-		var seasonn = $("#selectSeason").val();
+	$(window).load(function() { $("#selectDay").trigger("change", 2035, 1) });
+
+	$("#selectDay").change(function(e,s,d){
+		d = d || $(this).val();
+		s = s || $("#selectSeason").val();
+		console.log("~~~ " + d + " ~~~~ " + s);
+		//var day = $("#selectDay").val();
+		//var seasonn = $("#selectSeason").val();
 		socket.emit("getMatchday", {
-			matchday_number: day.substring(0,1),
-			season: seasonn
+			//matchday_number: day.substring(0,1),
+			//season: seasonn
+			matchday_number: d,
+			season: s
 		})
 		socket.on("hereSelectMatchdayChange", function(data){
 			console.log("DATALENGTH---"+data[0].length);
 			var matcheslist = [];
 			for (var i=0; i<data[0].length; i++) {
 				var match = new Object();
-				//console.log(data[0][i].id);
 				match.id = data[0][i].id;
 				match.home_team = data[0][i].home_team;
 				match.away_team = data[0][i].away_team;
@@ -84,24 +99,24 @@ $(document).ready(function(){
 						match.goals.push(goal);
 					}
 				}
-				console.log(match);
 				matcheslist.push(match);
 			}
 			$(".container").empty();
 			for (var j=0; j<matcheslist.length; j++) {
-					$(".container").append('<div class="row accordion" id="accordion'+j+'"></div>');
-					$("#accordion"+j).append('<div class="dsowag span10 offset1 well accordion-group" id="dsowag'+j+'"></div>');
-					$("#dsowag"+j).append('<div class="drah row accordion-heading" id="drah'+j+'"></div');
-					$("#drah"+j).append('<a class="accordion-toggle" id="toggle'+j+'" data-toggle="collapse" data-parent="#accordion'+j+'" href="#collapse'+j+'"></a>');
-					var d = createMatch(matcheslist[j]);
-					$("#toggle"+j).append(d.d1);
-					$("#dsowag"+j).append('<div id="collapse'+j+'" class="collapsed accordion-body collapse in span10"></div>');
-					//$("#collapse"+j).append('<div class="row accordion-inner" id="inner'+j+'"></div>');
-					console.log("D2 length:"+d.d2.length);
-					for (var k=0; k<d.d2.length; k++) {
-						$("#collapse"+j).append(d.d2[k]);
-					}
+				$(".container").append('<div class="row accordion" id="accordion'+j+'"></div>');
+				$("#accordion"+j).append('<div class="dsowag span10 offset1 well accordion-group" id="dsowag'+j+'"></div>');
+				$("#dsowag"+j).append('<div class="drah row accordion-heading" id="drah'+j+'"></div');
+				$("#drah"+j).append('<a class="accordion-toggle" id="toggle'+j+'" data-toggle="collapse" data-parent="#accordion'+j+'" href="#collapse'+j+'"></a>');
+				var d = createMatch(matcheslist[j]);
+				$("#toggle"+j).append(d.d1);
+				$("#dsowag"+j).append('<div id="collapse'+j+'" class="collapsed accordion-body collapse in span10"></div>');
+				for (var k=0; k<d.d2.length; k++) {
+					$("#collapse"+j).append(d.d2[k]);
 				}
+			}
+			for (var i=0; i<10; i++) {
+				$('#collapse'+i).collapse("hide");
+			}
 		})
 	});
 
@@ -153,23 +168,29 @@ var createMatch = function(match) {
 		var diff = homeGoals.length - awayGoals.length;
 		var o = 0;
 		for (o; o<awayGoals.length; o++) {
-			var dd = '<div class="row accordion-inner"><div class="span1"></div><div class="span3 offset1 score">'+homeGoals[o].time+'" '+homeGoals[o].player+'</div><div class="span2 score"></div><div class="span3 offset2 score">'+awayGoals[o].time+'" '+awayGoals[o].player+'</div><div class="span1"></div></div>';
+			var dd = '<div class="row accordion-inner"><div class="span1"></div><div class="span3 offset1 score">'+homeGoals[o].time+'\' '+homeGoals[o].player+'</div><div class="span2 score"></div><div class="span3 offset2 score">'+awayGoals[o].time+'\' '+awayGoals[o].player+'</div><div class="span1"></div></div>';
 			d2.push(dd);
 		}
 		for (o; o<homeGoals.length; o++) {
-			var dd = '<div class="row accordion-inner"><div class="span1"></div><div class="span3 offset1 score">'+homeGoals[o].time+'" '+homeGoals[o].player+'</div><div class="span2 score"></div><div class="span3 offset2 score">            </div><div class="span1"></div></div>';
+			var dd = '<div class="row accordion-inner"><div class="span1"></div><div class="span3 offset1 score">'+homeGoals[o].time+'\' '+homeGoals[o].player+'</div><div class="span2 score"></div><div class="span3 offset2 score"> </div><div class="span1"></div></div>';
 			d2.push(dd);
 		}
 	}
-	if (homeGoals.length < awayGoals.length) {
+	else if (homeGoals.length < awayGoals.length) {
 		var diff = awayGoals.length - homeGoals.length;
 		var o = 0;
 		for (o; o<homeGoals.length; o++) {
-			var dd = '<div class="row accordion-inner"><div class="span1"></div><div class="span3 offset1 score">'+homeGoals[o].time+'" '+homeGoals[o].player+'</div><div class="span2 score"></div><div class="span3 offset2 score">'+awayGoals[o].time+'" '+awayGoals[o].player+'</div><div class="span1"></div></div>';
+			var dd = '<div class="row accordion-inner"><div class="span1"></div><div class="span3 offset1 score">'+homeGoals[o].time+'\' '+homeGoals[o].player+'</div><div class="span2 score"></div><div class="span3 offset2 score">'+awayGoals[o].time+'\' '+awayGoals[o].player+'</div><div class="span1"></div></div>';
 			d2.push(dd);
 		}
 		for (o; o<awayGoals.length; o++) {
-			var dd = '<div class="row accordion-inner"><div class="span1"></div><div class="span3 offset1 score">  </div><div class="span2 score"></div><div class="span3 offset2 score">'+awayGoals[o].time+'" '+awayGoals[o].player+'</div><div class="span1"></div></div>';
+			var dd = '<div class="row accordion-inner"><div class="span1"></div><div class="span3 offset1 score">  </div><div class="span2 score"></div><div class="span3 offset2 score">'+awayGoals[o].time+'\' '+awayGoals[o].player+'</div><div class="span1"></div></div>';
+			d2.push(dd);
+		}
+	}
+	else {
+		for (var o=0; o<homeGoals.length; o++) {
+			var dd = '<div class="row accordion-inner"><div class="span1"></div><div class="span3 offset1 score">'+homeGoals[o].time+'\' '+homeGoals[o].player+'</div><div class="span2 score"></div><div class="span3 offset2 score">'+awayGoals[o].time+'\' '+awayGoals[o].player+'</div><div class="span1"></div></div>';
 			d2.push(dd);
 		}
 	}

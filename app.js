@@ -145,6 +145,8 @@ io.sockets.on('connection', function (socket) {
   socket.on("getSeasons",function (data) {
     controller.getSeasons(data,socket);
   });
-
+  socket.on("getLatestMatch", function (data) {
+    //...
+  })
 });
 
