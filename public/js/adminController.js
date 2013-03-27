@@ -69,7 +69,7 @@ var hereTheScores = function(data,socket){
     }
   }
   var select = '<div id="selectMatchdayContainer"><h3>Matchdays</h3><select id="selectMatchday"><option value="-1">Select Matchday</option>';
-  for(var i=0;i<matchdays.length;i++){
+  for(var i=matchdays.length;i>matchdays.length;i++){
     select = select + '<option value="'+matchdays[i]+'">Matchday '+matchdays[i]+'</option>';
   }
   select = select +'</select></div>';
@@ -87,7 +87,7 @@ var selectMatchdayChange = function(data,socket){
   var scores = data[1];
   data = data[0];
   $("#accordions div,#accordions h3").remove();
-  $("#accordions").append("<h3>Scores</h3>");
+  $("#accordions").append('<h3>Scores</h3><button class="btn">End matchday<button/>');
   var accordion = '<div class="row accordion" id="accordion££accordion_nr££"><div class="span8 well accordion-group"><div class="row accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion££accordion_nr££" href="#collapse££accordion_nr££"><div class="span1 scudo"><img src="/££home_team_shield££.png" alt=""/></div><p class="span2 team">££home_team££</p><p class="span2 team" id="scores">££score££</p><p class="span2 team">££away_team££</p><div class="span1 scudo"><img src="/££away_team_shield££.png" alt=""/></div></a></div><div id="collapse££accordion_nr££" class="collapsed accordion-body collapse in span8"><div class="accordion-inner" id="inner_accordion_££accordion_nr££"><div id="goal££accordion_nr££_££index££"><div class="home_team_scores floatl"><div><div class="floatl"><input id="home_team_time££accordion_nr££_££index££" class="time" type="text"></div><div class="floatl"><input id="home_team_player££accordion_nr££_££index££" class="player" type="text"></div><div class="clr"></div></div></div><div class="floatl separator_scores"></div><div class="away_team_scores floatl"><div><div class="floatl"><input id="away_team_time££accordion_nr££_££index££" class="time" type="text"></div><div class="floatl"><input id="away_team_player££accordion_nr££_££index££" class="player" type="text"></div><div class="clr"></div></div></div><div class="clr"></div></div></div></div></div></div>';
   var score_input = ' <div id="scoreid££scoreid££" ><div class="floatl"><input id="££home_away££_team_time££accordion_nr££_££index££" class="time" type="text"></div><div class="floatl"><input id="££home_away££_team_player££accordion_nr££_££index££" class="player" type="text"></div><div class="clr"></div></div>';
   
