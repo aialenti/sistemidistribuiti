@@ -86,7 +86,7 @@ var selectMatchdayChange = function(data,socket){
   var scores = data[1];
   data = data[0];
   var id = $("#selectMatchday").val();
-  $("#accordions div,#accordions h3").remove();
+  $("#accordions div,#accordions h3,button").remove();
   $("#accordions").append('<h3>Scores</h3><button class="activateSeasonBtn" id="activateSeasonBtn'+id+'_'+data[0].matchdays_season+'" class="btn">End matchday</button><br/><br/>')
   $(".activateSeasonBtn").click(function(){
 	  var id = $(this).attr("id").replace("activateSeasonBtn","").split("_");
