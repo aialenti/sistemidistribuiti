@@ -64,9 +64,9 @@ $(document).ready(function(){
   socket.on("hereChampionshipModalData",function(teams){
     hereChampionshipModalData(teams,socket);
   });
-  socket.on("updateScoresView",function(data){
-    updateTheScores(data,socket);
-  });
+  // socket.on("updateScoresView",function(data){
+  //   updateTheScores(data,socket);
+  // });
   socket.on("selectMatchdayChange",function(data){
     selectMatchdayChange(data,socket);
   });
