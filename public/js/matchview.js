@@ -34,32 +34,47 @@ $(document).ready(function(){
 			matchesdata = data; 
 			$("#selectDay").empty();
 			var insertedDays = [];
+			var teams = [];
 			insertedDays.push({ day: "-1", flag: "-1"});
+			for (var i=0; i<matchesdata.length; i++) {
+				var talready = false;
+				var team = matchesdata[i].home_team;
+				for (var j=0; j<teams.length; j++) {
+					if (teams[j] == team)
+						talready = true;
+				}
+				if (!talready)
+					teams.push(team);
+			}
+			console.log("TEAMS: "+teams);
 			for (var i=0; i<matchesdata.length; i++) {
 				var already = false;
 				var datas = {
 					day: matchesdata[i].matchdays_number,
-					flag: matchesdata[i].matchdays_flag
+					flag: matchesdata[i].matchdays_flag,
 				};
-				for (var j=0; j<insertedDays.length; j++) {
-					console.log("Comparing ID " + insertedDays[j].day + "-" + insertedDays[j].flag + " with day " + datas.day + "-" + datas.flag);
-					if (insertedDays[j].day == datas.day) {
-						if (insertedDays[j].flag == datas.flag) {
-							console.log("already in");
-							already = true; 
+				console.log("MATCH: "+datas.day+"-"+datas.flag+", PAST?"+matchesdata[i].past);
+				if (matchesdata[i].past != 1) { //h IN REALTÀ VA INVERTITO !=0
+					for (var j=0; j<insertedDays.length; j++) {
+						console.log("Comparing ID " + insertedDays[j].day + "-" + insertedDays[j].flag + " with day " + datas.day + "-" + datas.flag);
+						if (insertedDays[j].day == datas.day) {
+							if (insertedDays[j].flag == datas.flag) {
+								console.log("already in");
+								already = true; 
+							}
 						}
 					}
-				}
-				if (!already) {
-					insertedDays.push({day: datas.day, flag: datas.flag});
-					console.log(insertedDays);
-					dayd = (datas.day % (matchesdata.length/4))+1;
-					console.log("DAY-- " + datas.day + " LEN-- " +matchesdata.length);
-					var leg = ((datas.flag === 0) ? "Andata" : "Ritorno");
-					$('#selectDay')
-					.append($('<option>', { "value" : datas.day+"-"+datas.flag })
-						.text(dayd + "° " + leg));
-				}
+					if (!already) {
+						insertedDays.push({day: datas.day, flag: datas.flag});
+						console.log(insertedDays);
+						dayd = (datas.day % (matchesdata.length/teams.length))+1;
+						console.log("DAY-- " + datas.day + " LEN-- " +matchesdata.length);
+						var leg = ((datas.flag === 0) ? "Andata" : "Ritorno");
+						$('#selectDay')
+						.append($('<option>', { "value" : datas.day+"-"+datas.flag })
+							.text(dayd + "° " + leg));
+					} 
+				}//h
 			};
 		});
 	});
