@@ -81,7 +81,7 @@ var hereTheScores = function(data,socket){
     });
   });
 }
-ar selectMatchdayChange = function(data,socket){
+var selectMatchdayChange = function(data,socket){
   console.log(data)
   var scores = data[1];
   data = data[0];
