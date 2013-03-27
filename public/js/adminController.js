@@ -55,11 +55,14 @@ var seasonCreated = function(){
 }
 
 var hereTheScores = function(data,socket){
-  /*Il server restituisce tutta la stagione selezionata.
-   * Viene creata una ulteriore select che racchiude il numero di giornate.
-   * Si seleziona la giornata, vengono visualizzate le partite di quella giornata*/
+	console.log(data)
+  /*
+	 * Il server restituisce tutta la stagione selezionata. Viene creata una
+	 * ulteriore select che racchiude il numero di giornate. Si seleziona la
+	 * giornata, vengono visualizzate le partite di quella giornata
+	 */
   $("#selectMatchdayContainer").remove();
-  $("#accordions div,#accordions h3").remove();
+  $("#accordions div,#accordions h3,#accordions button").remove();
   var p = 0;
   var matchdays = new Array();
   for(var i=0;i<data.length;i++){
@@ -69,7 +72,7 @@ var hereTheScores = function(data,socket){
     }
   }
   var select = '<div id="selectMatchdayContainer"><h3>Matchdays</h3><select id="selectMatchday"><option value="-1">Select Matchday</option>';
-  for(var i=matchdays.length;i>matchdays.length;i++){   
+  for(var i=0;i<matchdays.length;i++){   
     select = select + '<option value="'+matchdays[i]+'">Matchday '+matchdays[i]+'</option>';
   }
   select = select +'</select></div>';
@@ -86,13 +89,22 @@ var selectMatchdayChange = function(data,socket){
   console.log(data)
   var scores = data[1];
   data = data[0];
+  var id = $("#selectMatchday").val();
   $("#accordions div,#accordions h3").remove();
-  $("#accordions").append('<h3>Scores</h3><button class="btn">End matchday<button/>');
+  $("#accordions").append('<h3>Scores</h3><button class="activateSeasonBtn" id="activateSeasonBtn'+id+'_'+data[0].matchdays_season+'" class="btn">End matchday</button><br/><br/>')
+  $(".activateSeasonBtn").click(function(){
+	  var id = $(this).attr("id").replace("activateSeasonBtn","").split("_");
+	  var data = new Object;
+	  data.number = id[0];
+	  data.season = id[1];
+	  socket.emit("activateMatchday",data);
+	  
+  });
+
   var accordion = '<div class="row accordion" id="accordion££accordion_nr££"><div class="span8 well accordion-group"><div class="row accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion££accordion_nr££" href="#collapse££accordion_nr££"><div class="span1 scudo"><img src="/££home_team_shield££.png" alt=""/></div><p class="span2 team">££home_team££</p><p class="span2 team" id="scores">££score££</p><p class="span2 team">££away_team££</p><div class="span1 scudo"><img src="/££away_team_shield££.png" alt=""/></div></a></div><div id="collapse££accordion_nr££" class="collapsed accordion-body collapse in span8"><div class="accordion-inner" id="inner_accordion_££accordion_nr££"><div id="goal££accordion_nr££_££index££"><div class="home_team_scores floatl"><div><div class="floatl"><input id="home_team_time££accordion_nr££_££index££" class="time" type="text"></div><div class="floatl"><input id="home_team_player££accordion_nr££_££index££" class="player" type="text"></div><div class="clr"></div></div></div><div class="floatl separator_scores"></div><div class="away_team_scores floatl"><div><div class="floatl"><input id="away_team_time££accordion_nr££_££index££" class="time" type="text"></div><div class="floatl"><input id="away_team_player££accordion_nr££_££index££" class="player" type="text"></div><div class="clr"></div></div></div><div class="clr"></div></div></div></div></div></div>';
   var score_input = ' <div id="scoreid££scoreid££" ><div class="floatl"><input id="££home_away££_team_time££accordion_nr££_££index££" class="time" type="text"></div><div class="floatl"><input id="££home_away££_team_player££accordion_nr££_££index££" class="player" type="text"></div><div class="clr"></div></div>';
   
   var tmp,score_tmp;
-  var id = $("#selectMatchday").val();
   for(var i=0;i<data.length;i++){
     if(data[i].matchdays_number == id && data[i].away_team != 0 && data[i].home_team != 0){
       tmp = accordion;
@@ -105,7 +117,8 @@ var selectMatchdayChange = function(data,socket){
       tmp = tmp.replace(/\£\£index\£\£/g,"0");
 
       var home_score = 0,away_score = 0;
-      var index = 1; //mi serve per contare l'index dei gol segnati in una certa partita e creare le caselle di input
+      var index = 1; // mi serve per contare l'index dei gol segnati in una
+						// certa partita e creare le caselle di input
       var scores_array = new Array();
       for(var j=0;j<scores.length;j++){
         score_tmp = score_input;
@@ -154,7 +167,7 @@ var selectMatchdayChange = function(data,socket){
       }
     }
   }
-  //a questo punto attivo le input text per l'aggiornamento
+  // a questo punto attivo le input text per l'aggiornamento
   $(".player,.time").keypress(function(ev){
     var data = new Object;
     var flag;
@@ -162,7 +175,7 @@ var selectMatchdayChange = function(data,socket){
     var matchid = id.replace("away_team_time","").replace("away_team_player","").replace("home_team_player","").replace("home_team_time","").replace(/\_[0-9]/,"");
     console.log(matchid)
     if(ev.which == 13){
-      //se è il primo, invia un addScore
+      // se è il primo, invia un addScore
       if($(this).attr("id").match(/^(away|home)\_team\_(player|time)+[0-9]+\_0$/)){
         console.log($(this).attr("id"))
         if(id.match(/away/)){
@@ -185,7 +198,7 @@ var selectMatchdayChange = function(data,socket){
         data.matchid = matchid;
         socket.emit("addScore",data);
       }
-      //se non è il primo, invia un update/delete
+      // se non è il primo, invia un update/delete
       else{
         var scoreid = $(this).parent().parent().attr("id").replace("scoreid","");
         var last_part = id.replace("away_team_time","").replace("away_team_player","").replace("home_team_player","").replace("home_team_time","");

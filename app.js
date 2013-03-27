@@ -142,6 +142,10 @@ io.sockets.on('connection', function (socket) {
   socket.on("getMatchday",function(data){
     controller.getMatchday(data,socket);
   });
+  socket.on("activateMatchday",function(data){
+	  data.action="activate";
+	    controller.manageMatchDay(data,socket);
+	  });
   socket.on("getSeasons",function (data) {
     controller.getSeasons(data,socket);
   });
