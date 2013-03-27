@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS `matchdays` (
   `flag` boolean NOT NULL,
   `number` int(2) NOT NULL,
   `season` int(4) NOT NULL,
+  `past` boolean NOT NULL DEFAULT 0,
   PRIMARY KEY (`flag`, `number`, `season`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -46,5 +47,3 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
-
-alter table matchdays add column past int(2) default 0;
