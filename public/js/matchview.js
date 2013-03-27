@@ -79,12 +79,19 @@ $(document).ready(function(){
 		});
 	});
 
-	$(window).load(function() { $("#selectDay").trigger("change", 2035, 1) });
+	$(window).load(function() { $("#selectDay").trigger("change", {s:2035, d:4}) });
 
-	$("#selectDay").change(function(e,s,d){
-		d = d || $(this).val();
-		s = s || $("#selectSeason").val();
-		console.log("~~~ " + d + " ~~~~ " + s);
+	$("#selectDay").change(function(e,p){
+		//console.log(p.d+" rrrrrr "+$(this).val() + " llll "+p.s);
+		if (p != undefined) {
+			d = p.d;
+			s = p.s;
+		}
+		else {
+			d = $(this).val();
+			s = $("#selectSeason").val();
+		}
+		//console.log("~~~ " + d + " ~~~~ " + s);
 		//var day = $("#selectDay").val();
 		//var seasonn = $("#selectSeason").val();
 		socket.emit("getMatchday", {
@@ -137,12 +144,14 @@ $(document).ready(function(){
 
 	socket.on("updateScoresView", function(data){
 		console.log("DATA!!!!!!"+data);
+		var l = data.length;
+		console.log(data[l-1]+" "+data[l-2]);
 		if ($("#selectSeason").val() == data[0][0].matchdays_season)
 			console.log("season ok");
-			console.log(data.matchday+"-----v-----"+$("#selectDay").val().substring(0,1));
-			if ($("#selectDay").val().substring(0,1) == data.matchday) {
-				console.log("day ok");
-				$('input[matchid="'+data.matchid+'"]').css('background: red');
+			console.log(data[l-1]+"-----v-----"+$("#selectDay").val().substring(0,1));
+			if ($("#selectDay").val().substring(0,1) == data[l-1]) {
+				console.log("$('div[matchid='"+data[l-2]+"']')==="+$('div[matchid="'+data[l-2]+'"]').html());
+				$('div[matchid="'+data[l-2]+'"]').css("background","red");
 			}
 	});
 
