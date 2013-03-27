@@ -55,14 +55,11 @@ var seasonCreated = function(){
 }
 
 var hereTheScores = function(data,socket){
-	console.log(data)
-  /*
-	 * Il server restituisce tutta la stagione selezionata. Viene creata una
-	 * ulteriore select che racchiude il numero di giornate. Si seleziona la
-	 * giornata, vengono visualizzate le partite di quella giornata
-	 */
+  /*Il server restituisce tutta la stagione selezionata.
+   * Viene creata una ulteriore select che racchiude il numero di giornate.
+   * Si seleziona la giornata, vengono visualizzate le partite di quella giornata*/
   $("#selectMatchdayContainer").remove();
-  $("#accordions div,#accordions h3,#accordions button").remove();
+  $("#accordions div,#accordions h3").remove();
   var p = 0;
   var matchdays = new Array();
   for(var i=0;i<data.length;i++){
@@ -72,7 +69,7 @@ var hereTheScores = function(data,socket){
     }
   }
   var select = '<div id="selectMatchdayContainer"><h3>Matchdays</h3><select id="selectMatchday"><option value="-1">Select Matchday</option>';
-  for(var i=0;i<matchdays.length;i++){   
+  for(var i=matchdays.length;i>=0;i--){
     select = select + '<option value="'+matchdays[i]+'">Matchday '+matchdays[i]+'</option>';
   }
   select = select +'</select></div>';
@@ -84,8 +81,7 @@ var hereTheScores = function(data,socket){
     });
   });
 }
-
-var selectMatchdayChange = function(data,socket){
+ar selectMatchdayChange = function(data,socket){
   console.log(data)
   var scores = data[1];
   data = data[0];
