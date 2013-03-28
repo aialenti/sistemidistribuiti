@@ -86,14 +86,23 @@ var selectMatchdayChange = function(data,socket){
   var scores = data[1];
   data = data[0];
   var id = $("#selectMatchday").val();
-  $("#accordions div,#accordions h3,button").remove();
-  $("#accordions").append('<h3>Scores</h3><button class="activateSeasonBtn" id="activateSeasonBtn'+id+'_'+data[0].matchdays_season+'" class="btn">End matchday</button><br/><br/>')
-  $(".activateSeasonBtn").click(function(){
-	  var id = $(this).attr("id").replace("activateSeasonBtn","").split("_");
+  $("#accordions div,#accordions h3,.activateSeasonCheck").remove();
+  var checked = 'checked="checked"';
+  if(data[0].past == 0)
+	  checked = "";
+  $("#accordions").append('<h3>Scores</h3><input '+checked+' type="checkbox" class="activateSeasonCheck" id="activateSeasonCheck'+id+'_'+data[0].matchdays_season+'" class="btn">Activate Matchday<br/><br/>')
+  $(".activateSeasonCheck").change(function(){
+	  var de = "de";
+	  console.log($(this).attr("checked"));
+	  if($(this).is(":checked"))
+		  de = "";
+	  else
+		  $(this).attr("checked","")
+	  var id = $(this).attr("id").replace("activateSeasonCheck","").split("_");
 	  var data = new Object;
 	  data.number = id[0];
 	  data.season = id[1];
-	  socket.emit("activateMatchday",data);
+	  socket.emit(de+"activateMatchday",data);
 	  
   });
 
