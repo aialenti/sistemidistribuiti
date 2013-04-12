@@ -2,6 +2,9 @@ for (var i=0; i<10; i++) {
 	$('#collapse'+i).collapse("hide");
 }
 
+//CLICK ON #collapse -> remove .attention class (pulse+red text)
+
+
 $(document).ready(function(){
 
 	var socket = io.connect('http://localhost:3001');
@@ -140,7 +143,7 @@ $(document).ready(function(){
 			for (var j=0; j<matcheslist.length; j++) {
 				$(".container").append('<div class="row accordion" id="accordion'+j+'"></div>');
 				$("#accordion"+j).append('<div class="dsowag span10 offset1 well accordion-group" id="dsowag'+j+'" matchid="'+matcheslist[j].id+'"></div>');
-				$("#dsowag"+j).append('<div class="drah row accordion-heading" id="drah'+j+'"></div');
+				$("#dsowag"+j).append('<div class="drah row accordion-heading clickable" id="drah'+j+'"></div');
 				$("#drah"+j).append('<a class="accordion-toggle" id="toggle'+j+'" data-toggle="collapse" data-parent="#accordion'+j+'" href="#collapse'+j+'"></a>');
 				var d = createMatch(matcheslist[j],j);
 				$("#toggle"+j).append(d.d1);
@@ -221,6 +224,7 @@ $(document).ready(function(){
 				else
 					awayscore++;
 				$('p[id="match'+id+'"]').text(homescore+" - "+awayscore);
+				$('#drah'+id).addClass('animated flash');
 			}
 	});
 
@@ -228,9 +232,9 @@ $(document).ready(function(){
 	//Questa implementazione prevede che i risultati siano aggiornati UNO ALLA VOLTA e IN ORDINE TEMPORALE 
 	//(ovvero "seguendo le partite", ogni volta che c'è un gol si aggiorna, supponendo che tutte le partite della
 	//stessa giornata comincino e finiscano alla stessa ora! Se no è un casino!)Questo perché controller.js
-	//restituisce le score ordinate per "time" (minuto del gol)
+	//restituisce le score ordinate per "time" (minuto del gol).
 	//Se si vuole mettere risultati di giornate vecchie invece non è un problema, tanto la view
-	//viene costrutita correttamente ad ogni richiesta
+	//viene costruita correttamente ad ogni richiesta
 
 	$("#loginform").submit(function() {
 
@@ -260,6 +264,12 @@ $(document).ready(function(){
 			window.location.replace("/admin");
 		})
 	});
+
+	$(document).on('click','.clickable',function() {
+    	var idd = this.id;
+    	$('div[id="'+idd+'"]').removeClass("animated flash");
+	});
+
 });
 
 var createMatch = function(match,number) {

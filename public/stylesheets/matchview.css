@@ -63,3 +63,7 @@ footer {
 .brand {
 	margin-top: 2px;
 }
+.clickable {
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-duration: 5s;
+}
