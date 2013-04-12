@@ -19,7 +19,8 @@ var app = express();
 var MemStore = express.session.MemoryStore;
 
 app.configure(function(){
-  app.set('port', 3001);
+  app.set('ip', process.env.OPENSHIFT_INTERNAL_IP || '127.0.0.1');
+  app.set('port', process.env.OPENSHIFT_INTERNAL_PORT || 3001);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon());
@@ -74,9 +75,11 @@ app.get('/*.(jpg|png|gif)', function(req, res){
 });
 
 
-serv = http.createServer(app).listen(app.get('port'), function(){
+/*serv = http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
-});
+});*/
+
+serv = http.createServer(app).listen(app.get('port'), app.get('ip'));
 
 var io = require('socket.io').listen(serv);
 var handshake = new Object;
