@@ -86,6 +86,7 @@ var handshake = new Object;
 
 //Socket.io authorization protocol
 io.configure(function() {
+  io.set("transports", ["websockets"]);
   io.set('authorization', function (handshakeData, accept) {
     handshake = handshakeData;
     if (handshakeData.headers.cookie) {
