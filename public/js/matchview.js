@@ -1,13 +1,12 @@
+//replace process.env.OPENSHIFT_INTERNAL_IP with localhost for local testing
+
 for (var i=0; i<10; i++) {
 	$('#collapse'+i).collapse("hide");
 }
 
-//CLICK ON #collapse -> remove .attention class (pulse+red text)
-
-
 $(document).ready(function(){
 
-	var socket = io.connect('http://localhost:3001');
+	var socket = io.connect('http://'+process.env.OPENSHIFT_INTERNAL_IP+':'+process.env.OPENSHIFT_INTERNAL_PORT);
 	var seasons = [];
 
 	socket.emit("getSeasons");

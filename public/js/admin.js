@@ -1,12 +1,14 @@
+//replace process.env.OPENSHIFT_INTERNAL_IP with localhost for local testing
+
 $('#mytab a').click(function (e) {
   e.preventDefault();
   $(this).tab("show");
-  var socket = io.connect('http://localhost');
+  var socket = io.connect('http://'+process.env.OPENSHIFT_INTERNAL_IP);
   socket.emit('getChampionship');
 });
 
 $(document).ready(function(){
-  var socket = io.connect('http://localhost');
+  var socket = io.connect('http://'+process.env.OPENSHIFT_INTERNAL_IP);
   $('#mytab a').click(function (e) {
     e.preventDefault();
     socket.emit('getChampionship');
@@ -46,7 +48,7 @@ $(document).ready(function(){
 
 //eventi
 $(document).ready(function(){
-  var socket = io.connect('http://localhost');
+  var socket = io.connect('http://'+process.env.OPENSHIFT_INTERNAL_IP);
   socket.on('hereYourList', function (data) {
     hereYourList(data,socket);
   });
@@ -83,7 +85,7 @@ $(document).ready(function(){
 
 //errors handling
 $(document).ready(function(){
-  var socket = io.connect('http://localhost');
+  var socket = io.connect('http://'+process.env.OPENSHIFT_INTERNAL_IP);
   socket.on("errorOnSentData",function(data){
     console.log(data)
     switch(data.caller){
