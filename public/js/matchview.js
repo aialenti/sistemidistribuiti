@@ -1,4 +1,4 @@
-//replace seriealive-ffander.rhcloud.com with localhost for local testing
+//replace '/' or seriealive-ffander.rhcloud.com with localhost for local testing
 
 for (var i=0; i<10; i++) {
 	$('#collapse'+i).collapse("hide");
@@ -6,7 +6,7 @@ for (var i=0; i<10; i++) {
 
 $(document).ready(function(){
 
-	var socket = io.connect('http://seriealive-ffander.rhcloud.com');
+	var socket = io.connect('/');
 	var seasons = [];
 
 	socket.emit("getSeasons");
