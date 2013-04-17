@@ -137,6 +137,7 @@ io.sockets.on('connection', function (socket) {
     controller.manageTeam(data,socket);
   });
   socket.on('doLogin', function (data) {
+    console.log(">>>REQUESTING LOGIN");
     data.sessionid = cookie.parse(handshake.headers.cookie);
     controller.doLogin(data,socket);
   });
