@@ -1,4 +1,4 @@
-//replace process.env.OPENSHIFT_INTERNAL_IP with localhost for local testing
+//replace seriealive-ffander.rhcloud.com with localhost for local testing
 
 for (var i=0; i<10; i++) {
 	$('#collapse'+i).collapse("hide");
@@ -6,7 +6,7 @@ for (var i=0; i<10; i++) {
 
 $(document).ready(function(){
 
-	var socket = io.connect('http://'+process.env.OPENSHIFT_INTERNAL_IP+':'+process.env.OPENSHIFT_INTERNAL_PORT);
+	var socket = io.connect('http://seriealive-ffander.rhcloud.com');
 	var seasons = [];
 
 	socket.emit("getSeasons");

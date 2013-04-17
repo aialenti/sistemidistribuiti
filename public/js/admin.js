@@ -1,14 +1,14 @@
-//replace process.env.OPENSHIFT_INTERNAL_IP with localhost for local testing
+//replace seriealive-ffander.rhcloud.com with localhost for local testing
 
 $('#mytab a').click(function (e) {
   e.preventDefault();
   $(this).tab("show");
-  var socket = io.connect('http://'+process.env.OPENSHIFT_INTERNAL_IP);
+  var socket = io.connect('http://seriealive-ffander.rhcloud.com');
   socket.emit('getChampionship');
 });
 
 $(document).ready(function(){
-  var socket = io.connect('http://'+process.env.OPENSHIFT_INTERNAL_IP);
+  var socket = io.connect('http://seriealive-ffander.rhcloud.com');
   $('#mytab a').click(function (e) {
     e.preventDefault();
     socket.emit('getChampionship');
@@ -48,7 +48,7 @@ $(document).ready(function(){
 
 //eventi
 $(document).ready(function(){
-  var socket = io.connect('http://'+process.env.OPENSHIFT_INTERNAL_IP);
+  var socket = io.connect('http://seriealive-ffander.rhcloud.com');
   socket.on('hereYourList', function (data) {
     hereYourList(data,socket);
   });
