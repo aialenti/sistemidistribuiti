@@ -93,9 +93,6 @@ serv = http.createServer(app).listen(app.get('port'), app.get('ip'));
 
 var io = require('socket.io').listen(serv);
 var handshake = new Object;
-//debug
-handshake.headers = new Object;
-handshake.headers.cookie = "aaa";
 
 //Socket.io authorization protocol
 io.configure(function() {
@@ -105,7 +102,7 @@ io.configure(function() {
   io.set("transports", ["websockets"]);
   //io.set("transports", ["xhr-polling"]);
   //io.set("polling duration", 30);
-  /*io.set('authorization', function (handshakeData, accept) {
+  io.set('authorization', function (handshakeData, accept) {
     console.log("HERE");
     handshake = handshakeData;
     if (handshakeData.headers.cookie) {
@@ -119,7 +116,7 @@ io.configure(function() {
     } 
     accept(null, true);
     console.log("----AUTHEND-- "+ handshakeData.headers.cookie);
-  });*/
+  });
 });
 
 //Reperimento delle informazioni sul database
