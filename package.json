@@ -1,12 +1,31 @@
 {
-  "name": "seriealive",
-  "version": "0.0.2",
+  "name": "Serie A Live",
+  "version": "0.0.3",
+  "description": "Real Time Serie A Updates",
+  "keywords": ["OpenShift", "Node.js", "application", "socket.io"],
+  "homepage": "https://github.com/aialenti/sistemidistribuiti",
+   "author": {
+    "name": "Francesco Anderloni / Andrea Ialenti",
+    "email": "francesco.anderloni@studenti.unipd.it"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aialenti/sistemidistribuiti.git"
+  },
   "private": true,
   "scripts": {
     "start": "node app.js --websocket-port=8000 --log-level=1"
   },
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
   "dependencies": {
     "express": "3.1.0",
+    "optimist": "0.3.x",
+    "socket.io": "0.9.x",
+    "mysql": "*",
     "jade": "*"
   }
+  "main": "app.js"
 }
