@@ -14,6 +14,8 @@ var controller = require("./node_modules/application/controller.js");
 var cookie = require("cookie");
 var argv = require('optimist').argv;
 
+//PER DEBUG - Cancellare dopo
+var model = require('./model.js');
 
 var app = express();
 
