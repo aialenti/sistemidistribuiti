@@ -12,6 +12,8 @@ var express = require('express')
 var mysql      = require('mysql');
 var controller = require("./node_modules/application/controller.js");
 var cookie = require("cookie");
+var argv = require('optimist').argv;
+
 
 var app = express();
 
@@ -35,6 +37,15 @@ app.configure(function(){
 
 app.configure('development', function(){
   app.use(express.errorHandler());
+});
+
+// How we pass our websocket URL to the client.
+app.use('/varSocketURI.js', function(req, res) {
+    var port = argv['websocket-port'];
+    // Modify the URI only if we pass an optional connection port in.
+    var socketURI = port ? ':'+port+'/' : '/';
+    res.set('Content-Type', 'text/javascript');
+    res.send('var socketURI="'+socketURI+'";');
 });
 
 // dispatcher
@@ -86,6 +97,9 @@ var handshake = new Object;
 
 //Socket.io authorization protocol
 io.configure(function() {
+  // Logging: 3 = debug (default), 1 = warn
+  var logLevel = (argv["log-level"] === undefined) ? 3 : argv["log-level"];
+  io.set("log level", logLevel);
   io.set("transports", ["websockets"]);
   io.set('authorization', function (handshakeData, accept) {
     handshake = handshakeData;
