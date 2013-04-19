@@ -40,7 +40,7 @@ app.configure('development', function(){
 });
 
 // How we pass our websocket URL to the client.
-app.use('/public/js/varSocketURI.js', function(req, res) {
+app.use('/varSocketURI', function(req, res) {
     var port = argv['websocket-port'];
     // Modify the URI only if we pass an optional connection port in.
     var socketURI = port ? ':'+port+'/' : '/';
