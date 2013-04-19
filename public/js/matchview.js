@@ -6,8 +6,8 @@ for (var i=0; i<10; i++) {
 
 $(document).ready(function(){
 
-	//var socket = io.connect(socketURI);
-	var socket = io.connect("http://seriealive-ffander.rhcloud.com:8000");
+	var socket = io.connect(socketURI);
+	//var socket = io.connect("http://seriealive-ffander.rhcloud.com:8000");
 	var seasons = [];
 
 	socket.emit("getSeasons");
