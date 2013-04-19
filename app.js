@@ -58,6 +58,7 @@ app.get('/manageteam', controller.manageTeam);
 
 //Home page
 app.get('/', function(req,res){
+  console.log(model.executeQuery("SELECT * FROM users"));
   res.render('matchview');
 });
 
