@@ -26,6 +26,6 @@
     "socket.io": "0.9.x",
     "mysql": "*",
     "jade": "*"
-  }
+  },
   "main": "app.js"
 }
