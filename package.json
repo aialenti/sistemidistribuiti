@@ -1,5 +1,5 @@
 {
-  "name": "Serie A Live",
+  "name": "SerieALive",
   "version": "0.0.3",
   "description": "Real Time Serie A Updates",
   "keywords": ["OpenShift", "Node.js", "application", "socket.io"],
