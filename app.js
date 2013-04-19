@@ -14,9 +14,6 @@ var controller = require("./node_modules/application/controller.js");
 var cookie = require("cookie");
 var argv = require('optimist').argv;
 
-//PER DEBUG - Cancellare dopo
-var model = require('./model.js');
-
 var app = express();
 
 //Session store - Memorystore is OK for development only since it can't store persistent data
@@ -60,7 +57,6 @@ app.get('/manageteam', controller.manageTeam);
 
 //Home page
 app.get('/', function(req,res){
-  console.log(model.executeQuery("SELECT * FROM users"));
   res.render('matchview');
 });
 
