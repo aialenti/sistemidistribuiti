@@ -3,3 +3,8 @@
 /node_modules/socket.io/node_modules/socket.io-client/node_modules/.bin/
 /node_modules/socket.io/node_modules/socket.io-client/node_modules/ws/build/Release/.deps/
 /node_modules/bcrypt/
+/node_modules/express/
+/node_modules/jade/
+/node_modules/mysql/
+/node_modules/optimist/
+/node_modules/socket.io/
