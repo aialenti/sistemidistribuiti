@@ -99,9 +99,9 @@ io.configure(function() {
   // Logging: 3 = debug (default), 1 = warn
   var logLevel = (argv["log-level"] === undefined) ? 3 : argv["log-level"];
   io.set("log level", logLevel);
-  io.set("transports", ["websockets"]);
-  //io.set("transports", ["xhr-polling"]);
-  //io.set("polling duration", 30);
+  //io.set("transports", ["websockets"]);
+  io.set("transports", ["xhr-polling"]);
+  io.set("polling duration", 30);
   io.set('authorization', function (handshakeData, accept) {
     console.log("HERE"+$OPENSHIFT_MYSQL_DB_HOST+":"+$OPENSHIFT_MYSQL_DB_PORT);
     handshake = handshakeData;
