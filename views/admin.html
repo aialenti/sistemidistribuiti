@@ -12,10 +12,7 @@
   <body>
     <div class="container">
       <ul id="mytab" class="nav nav-tabs">
-        <li class="active">
-          <a href="#users">Manage Users</a>
-        </li>
-        <li><a href="#championship">Manage Championship</a></li>
+        <li><a id="championshipTab" href="#championship">Manage Championship</a></li>
       </ul>
       <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade active in" id="users">
@@ -94,18 +91,27 @@
           <button id="addTeam" class="btn btn-primary">Add</button>
         </div>
       </div>
-      <div id="deleteConfirmation" class="modal hide fade">
+      <div id="editTeamModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3>Modal header</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3>Add Team</h3>
         </div>
         <div class="modal-body">
-          <p>Are you sure you want to remove the team</p>
+          <div class="row">
+            <div class="span2">
+              <input id="teamName-edit" type="text" placeholder="Insert the name of the team"><br/><br/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span2 hide" id="addTeam-return">
+              <img width="25" src="" alt="add team return"/> 
+              <span></span>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-          <a id="removeTeam-confirmation" href="#" class="btn btn-danger">Remove</a>
-          <input type="hidden" id="teamToRemove"/>
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+          <button id="editTeam-confirmation" class="btn btn-primary">Edit</button>
         </div>
       </div>
       <script src="/jquery.js"></script>

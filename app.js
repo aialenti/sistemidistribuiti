@@ -103,7 +103,7 @@ io.configure(function() {
   //io.set("transports", ["xhr-polling"]);
   //io.set("polling duration", 30);
   io.set('authorization', function (handshakeData, accept) {
-    console.log("HERE"+$OPENSHIFT_MYSQL_DB_HOST+":"+$OPENSHIFT_MYSQL_DB_PORT);
+    //console.log("HERE"+$OPENSHIFT_MYSQL_DB_HOST+":"+$OPENSHIFT_MYSQL_DB_PORT);
     handshake = handshakeData;
     if (handshakeData.headers.cookie) {
       handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
@@ -135,10 +135,15 @@ io.sockets.on('connection', function (socket) {
     data.action = "create";
     controller.manageTeam(data,socket);
   });
+socket.on('updateTeam', function(data) {
+		data.action = "edit";
+		controller.manageTeam(data, socket);
+	});
   socket.on('addScore', function (data) {
     data.action = "create";
     controller.manageScore(data,socket);
   });
+
   socket.on('deleteScore', function (data) {
     data.action = "delete";
     controller.manageScore(data,socket);
@@ -174,5 +179,8 @@ io.sockets.on('connection', function (socket) {
   socket.on("getSeasons",function (data) {
     controller.getSeasons(data,socket);
   });
+socket.on("getTeamName",function(data){
+		controller.getTeamName(data,socket);
+	});
 });
 
