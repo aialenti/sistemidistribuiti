@@ -103,7 +103,7 @@ io.configure(function() {
   //io.set("transports", ["xhr-polling"]);
   //io.set("polling duration", 30);
   io.set('authorization', function (handshakeData, accept) {
-    console.log("HERE");
+    console.log("HERE"+$OPENSHIFT_MYSQL_DB_HOST+":"+$OPENSHIFT_MYSQL_DB_PORT);
     handshake = handshakeData;
     if (handshakeData.headers.cookie) {
       handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
