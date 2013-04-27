@@ -115,7 +115,6 @@ io.configure(function() {
       return accept('No cookie transmitted.', false);
     } 
     accept(null, true);
-    console.log("----AUTHEND-- "+ handshakeData.headers.cookie);
   });
 });
 
@@ -154,11 +153,9 @@ socket.on('updateTeam', function(data) {
   });
   socket.on('removeTeam', function (data) {
     data.action = "delete";
-    console.log(data)
     controller.manageTeam(data,socket);
   });
   socket.on('doLogin', function (data) {
-    console.log(">>>REQUESTING LOGIN");
     data.sessionid = cookie.parse(handshake.headers.cookie);
     controller.doLogin(data,socket);
   });

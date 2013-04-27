@@ -87,7 +87,6 @@ $(document).ready(function() {
 $(document).ready(function() {
 	var socket = io.connect('http://localhost');
 	socket.on("errorOnSentData", function(data) {
-		console.log(data)
 		switch (data.caller) {
 			case "createSeason" :
 				var group = $("#seasonYear").closest(".control-group");

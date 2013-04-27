@@ -28,7 +28,6 @@ $(document).ready(function(){
 	//$(window).load(function() { $("#selectSeason").trigger("change", seasons[0]) });
 	window.setTimeout(function() {
 		$("#selectSeason").trigger("change", seasons[0]);
-		console.log("hhh"); 
 	}, 300);
 	
 	var matchesdata;
@@ -56,20 +55,16 @@ $(document).ready(function(){
 				if (!talready)
 					teams.push(team);
 			}
-			console.log("TEAMS: "+teams);
 			for (var i=0; i<matchesdata.length; i++) {
 				var already = false;
 				var datas = {
 					day: matchesdata[i].matchdays_number,
 					flag: matchesdata[i].matchdays_flag,
 				};
-				console.log("MATCH: "+datas.day+"-"+datas.flag+", PAST?"+matchesdata[i].past);
 				if (matchesdata[i].past != 0) {
 					for (var j=0; j<insertedDays.length; j++) {
-						console.log("Comparing ID " + insertedDays[j].day + "-" + insertedDays[j].flag + " with day " + datas.day + "-" + datas.flag);
 						if (insertedDays[j].day == datas.day) {
 							if (insertedDays[j].flag == datas.flag) {
-								console.log("already in");
 								already = true; 
 							}
 						}
@@ -77,9 +72,7 @@ $(document).ready(function(){
 					if (!already) {
 						insertedDays.push({day: datas.day, flag: datas.flag});
 						days.push(datas.day); //jjjjj
-						console.log(insertedDays);
 						dayd = datas.day; //% (matchesdata.length/teams.length)+1;
-						console.log("DAY-- " + datas.day + " LEN-- " +matchesdata.length);
 						var leg = ((datas.flag === 0) ? "Andata" : "Ritorno");
 						$('#selectDay')
 						.append($('<option>', { "value" : datas.day+"-"+datas.flag })

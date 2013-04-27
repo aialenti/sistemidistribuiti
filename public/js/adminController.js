@@ -80,7 +80,6 @@ var hereTheScores = function(data, socket) {
 		}
 	}
 	var select = '<div id="selectMatchdayContainer"><h3>Matchdays</h3><select id="selectMatchday"><option value="-1">Select Matchday</option>';
-	console.log(matchdays);
 	for ( var i = matchdays.length-1; i >= 0; i--) {
 		select = select + '<option value="' + matchdays[i] + '">Matchday ' + matchdays[i] + '</option>';
 	}
@@ -94,7 +93,6 @@ var hereTheScores = function(data, socket) {
 	});
 }
 var selectMatchdayChange = function(data, socket) {
-	console.log(data)
 	var scores = data[1];
 	data = data[0];
 	var id = $("#selectMatchday").val();
@@ -106,7 +104,6 @@ var selectMatchdayChange = function(data, socket) {
 			.append('<h3>Scores</h3><input ' + checked + ' type="checkbox" class="activateSeasonCheck" id="activateSeasonCheck' + id + '_' + data[0].matchdays_season + '" class="btn"><span class="activateSeasonCheck">Activate Matchday<br/><br/></span>')
 	$(".activateSeasonCheck").change(function() {
 		var de = "de";
-		console.log($(this).attr("checked"));
 		if ($(this).is(":checked"))
 			de = "";
 		else
@@ -142,7 +139,6 @@ var selectMatchdayChange = function(data, socket) {
 			var scores_array = new Array();
 			for ( var j = 0; j < scores.length; j++) {
 				score_tmp = score_input;
-				console.log(score_tmp);
 				if (scores[j].id == data[i].id) {
 					if (scores[j].score_flag == 0)
 						home_score++;
@@ -206,13 +202,11 @@ var selectMatchdayChange = function(data, socket) {
 						.replace("away_team_player", "")
 						.replace("home_team_player", "")
 						.replace("home_team_time", "").replace(/\_[0-9]/, "");
-				console.log(matchid)
 				if (ev.which == 13) {
 					// se è il primo, invia un addScore
 					if ($(this)
 							.attr("id")
 							.match(/^(away|home)\_team\_(player|time)+[0-9]+\_0$/)) {
-						console.log($(this).attr("id"))
 						if (id.match(/away/)) {
 							data.values = [["flag", "1"], ["player", $("#away_team_player" + matchid + "_0")
 									.val()], ["time", $("#away_team_time" + matchid + "_0")
@@ -222,7 +216,6 @@ var selectMatchdayChange = function(data, socket) {
 									.val()], ["time", $("#home_team_time" + matchid + "_0")
 									.val()], ["match_id", matchid + ""]];
 						}
-						console.log(data)
 						data.matchid = matchid;
 						socket.emit("addScore", data);
 					}
