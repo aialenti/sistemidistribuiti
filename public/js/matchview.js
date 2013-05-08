@@ -76,7 +76,7 @@ $(document).ready(function(){
 						var leg = ((datas.flag === 0) ? "Andata" : "Ritorno");
 						$('#selectDay')
 						.append($('<option>', { "value" : datas.day+"-"+datas.flag })
-							.text(dayd + "° Giornata - " + leg));
+							.text((dayd + 1) + "° Giornata - " + leg));
 					} 
 				}//h
 			};
