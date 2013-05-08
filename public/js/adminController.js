@@ -81,7 +81,7 @@ var hereTheScores = function(data, socket) {
 	}
 	var select = '<div id="selectMatchdayContainer"><h3>Matchdays</h3><select id="selectMatchday"><option value="-1">Select Matchday</option>';
 	for ( var i = matchdays.length-1; i >= 0; i--) {
-		select = select + '<option value="' + matchdays[i] + '">Matchday ' + matchdays[i] + '</option>';
+		select = select + '<option value="' + matchdays[i] + '">Matchday ' + (matchdays[i] + 1) + '</option>';
 	}
 	select = select + '</select></div>';
 	$("#selectSeason").after(select);
