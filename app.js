@@ -68,7 +68,7 @@ app.get('/admin', function(req,res) {
   //Verifica autorizzazione
   var auth = controller.authorize(req.cookies.express_sid);
   if (auth)
-    controller.getAdminPage(req,res);
+    res.render('admin');
   else
     res.redirect('/');
 });
@@ -84,11 +84,6 @@ app.get('/*.(jpg|png|gif)', function(req, res){
   res.sendfile("./public/img"+req.url);
 });
 
-
-/*serv = http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
-});*/
-
 serv = http.createServer(app).listen(app.get('port'), app.get('ip'));
 
 var io = require('socket.io').listen(serv);
@@ -99,11 +94,7 @@ io.configure(function() {
   // Logging: 3 = debug (default), 1 = warn
   var logLevel = (argv["log-level"] === undefined) ? 3 : argv["log-level"];
   io.set("log level", logLevel);
-  //io.set("transports", ["websockets"]);
-  //io.set("transports", ["xhr-polling"]);
-  //io.set("polling duration", 30);
   io.set('authorization', function (handshakeData, accept) {
-    //console.log("HERE"+$OPENSHIFT_MYSQL_DB_HOST+":"+$OPENSHIFT_MYSQL_DB_PORT);
     handshake = handshakeData;
     if (handshakeData.headers.cookie) {
       handshakeData.cookie = cookie.parse(handshakeData.headers.cookie);
@@ -117,8 +108,6 @@ io.configure(function() {
     accept(null, true);
   });
 });
-
-//Reperimento delle informazioni sul database
 
 io.sockets.on('connection', function (socket) {
   socket.on('getChampionship', function (data) {

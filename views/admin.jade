@@ -1,0 +1,88 @@
+!!! 5
+html
+  head
+    title Bootstrap 101 Template
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    //
+       Bootstrap 
+    link(href='/bootstrap.min.css', rel='stylesheet', media='screen')
+    link(href='/admin.css', rel='stylesheet', media='screen')
+    script(src='/adminController.js')
+    script(src='/socketio.js')
+  body
+    .container
+      ul#mytab.nav.nav-tabs
+        li
+          a#championshipTab(href='#championship') Manage Championship
+      #myTabContent.tab-content
+        #users.tab-pane.fade.active.in
+        #championship.tab-pane.fade
+          .row
+            .span2
+              h3 Seasons
+              select#selectSeason
+              a#createSeason-btn.btn(href='#createSeasonModal', role='button', data-toggle='modal') Create Season +
+              h3 Teams
+              a#addteam-btn.btn(href='#addTeamModal', role='button', data-toggle='modal') Add Team +
+              br
+              br
+              table#teamsTable.table.table-striped
+                tbody
+            #accordions.span7.offset1
+              h3 Scores
+      //
+         Modals 
+      #createSeasonModal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+          h3#myModalLabel Create Season
+        .modal-body
+          .span2
+            .control-group
+              .controls
+                input#seasonYear(type='text', placeholder='Insert the last year of the season')
+                .help-inline
+          .span2
+            table#selectTeams.table.table-striped.span2.table-hover
+              tbody
+        .modal-footer
+          button.btn(data-dismiss='modal', aria-hidden='true') Close
+          button#createSeason.btn.btn-primary Create
+      #addTeamModal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+          h3 Add Team
+        .modal-body
+          .row
+            .span2
+              input#teamName(type='text', placeholder='Insert the name of the team')
+              br
+              br
+          .row
+            #addTeam-return.span2.hide
+              img(width='25', src='', alt='add team return')
+              span
+        .modal-footer
+          button.btn(data-dismiss='modal', aria-hidden='true') Close
+          button#addTeam.btn.btn-primary Add
+      #editTeamModal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+          h3 Add Team
+        .modal-body
+          .row
+            .span2
+              input#teamName-edit(type='text', placeholder='Insert the name of the team')
+              br
+              br
+          .row
+            #addTeam-return.span2.hide
+              img(width='25', src='', alt='add team return')
+              span
+        .modal-footer
+          button.btn(data-dismiss='modal', aria-hidden='true') Close
+          button#editTeam-confirmation.btn.btn-primary Edit
+      script(src='/jquery.js')
+      script(src='/bootstrap.min.js')
+      script(src='/bootstrap-tab.js')
+      script(src='/admin.js')
