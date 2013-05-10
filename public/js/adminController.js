@@ -36,7 +36,7 @@ var hereYourList = function(data, socket) {
 					.append('<option value="-1">Select the season</option>')
 			var option = "";
 			for ( var i = 0; i < rows.length; i++) {
-				option = '<option value="' + rows[i].season + '">' + rows[i].season + '</option>';
+				option = '<option value="' + rows[i].season + '">' + rows[i].season + '/' + (rows[i].season + 1) + '</option>';
 				$("#selectSeason").append(option);
 			}
 		break;

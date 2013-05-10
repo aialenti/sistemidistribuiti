@@ -17,7 +17,7 @@ $(document).ready(function(){
 			};
 			$('#selectSeason')
 				.append($('<option>', { "value" : datas.season })
-					.text(datas.season));
+					.text(datas.season + '/' + (datas.season+1)));
 			seasons.push(datas.season);
 			console.log(seasons);
 		};
