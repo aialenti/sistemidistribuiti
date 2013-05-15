@@ -67,3 +67,8 @@ footer {
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-duration: 5s;
 }
+.innercontainer {
+	width: 700px;
+	margin-left: 280px;
+	margin-bottom: 50px;
+}

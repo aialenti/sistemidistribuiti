@@ -60,6 +60,10 @@ app.get('/', function(req,res){
   res.render('matchview');
 });
 
+app.get('/about', function(req,res){
+  res.render('about');
+});
+
 //Creazione utente
 app.get('/newUser', controller.createNewUser);
 
@@ -120,6 +124,7 @@ io.sockets.on('connection', function (socket) {
     controller.getChampionshipModalData(data,socket);
   });
   socket.on('addTeam', function (data) {
+    data.sessionid = cookie.parse(handshake.headers.cookie);
     data.action = "create";
     controller.manageTeam(data,socket);
   });
