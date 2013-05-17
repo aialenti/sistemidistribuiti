@@ -132,6 +132,7 @@ io.sockets.on('connection', function (socket) {
     controller.manageTeam(data,socket);
   });
 socket.on('updateTeam', function(data) {
+    data.sessionid = cookie.parse(handshake.headers.cookie);
 		data.action = "edit";
 		controller.manageTeam(data, socket);
 	});
