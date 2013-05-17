@@ -71,8 +71,8 @@ $(document).ready(function(){
 					}
 					if (!already) {
 						insertedDays.push({day: datas.day, flag: datas.flag});
-						days.push(datas.day); //jjjjj
-						dayd = datas.day; //% (matchesdata.length/teams.length)+1;
+						days.push(datas.day);
+						dayd = datas.day;
 						var leg = ((datas.flag === 0) ? "Andata" : "Ritorno");
 						$('#selectDay')
 						.append($('<option>', { "value" : datas.day+"-"+datas.flag })
@@ -276,7 +276,7 @@ var createMatch = function(match,number) {
 	homeGoals.sort(function(a,b) {return (a.time > b.time) ? 1 : ((b.time > a.time) ? -1 : 0);} );
 	awayGoals.sort(function(a,b) {return (a.time > b.time) ? 1 : ((b.time > a.time) ? -1 : 0);} );
 	divs = new Object();
-	divs.d1 = '<div class="span1 scudo"> <img src="/'+match.home_team+'.png" alt="" /></div><p class="span3 team">'+match.home_team_name+'</p><p id="match'+number+'" class="span2 team">'+homeGoals.length+' - '+awayGoals.length+'</p><p class="span3 team">'+match.away_team_name+'</p><div class="span1 scudo"> <img src="/'+match.away_team+'.png" alt="" /></div>'
+	divs.d1 = '<div class="span1 scudo"> <img src="/'+match.home_team_name+'.png" alt="" /></div><p class="span3 team">'+match.home_team_name+'</p><p id="match'+number+'" class="span2 team">'+homeGoals.length+' - '+awayGoals.length+'</p><p class="span3 team">'+match.away_team_name+'</p><div class="span1 scudo"> <img src="/'+match.away_team_name+'.png" alt="" /></div>'
 	var d2 = [];
 	if (homeGoals.length > awayGoals.length) {
 		var diff = homeGoals.length - awayGoals.length;

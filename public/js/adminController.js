@@ -127,8 +127,8 @@ var selectMatchdayChange = function(data, socket) {
 			tmp = tmp.replace(/\£\£accordion_nr\£\£/g, data[i].id);
 			tmp = tmp.replace("££home_team££", data[i].home_team_name);
 			tmp = tmp.replace("££away_team££", data[i].away_team_name);
-			tmp = tmp.replace("££home_team_shield££", data[i].home_team);
-			tmp = tmp.replace("££away_team_shield££", data[i].away_team);
+			tmp = tmp.replace("££home_team_shield££", data[i].home_team_name);
+			tmp = tmp.replace("££away_team_shield££", data[i].away_team_name);
 
 			tmp = tmp.replace(/\£\£index\£\£/g, "0");
 
