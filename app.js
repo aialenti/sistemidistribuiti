@@ -87,6 +87,9 @@ app.get('/*.(css)', function(req, res){
 app.get('/*.(jpg|png|gif)', function(req, res){
   res.sendfile("./public/img"+req.url);
 });
+app.get('/*.(pdf)', function(req, res){
+  res.sendfile("./public/docs"+req.url);
+});
 
 serv = http.createServer(app).listen(app.get('port'), app.get('ip'));
 

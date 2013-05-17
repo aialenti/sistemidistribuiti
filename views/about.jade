@@ -2,7 +2,7 @@
 html(lang='en')
 head
     meta(charset='utf-8')
-    title Serie A Live
+    title About - Serie A Live
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(href='/bootstrap.css', rel='stylesheet')
     link(href='/matchview.css', rel='stylesheet')
@@ -30,9 +30,12 @@ head
                     img(src='/spin.gif')
                   button#login.btn.btn-primary(type='submit') Log me in
     .container
-    footer
-      div.innercontainer
-        script.speakerdeck-embed(async='async', data-id='d03e8bb09f8f0130737e3ac3cf79c5e0', data-ratio='1.33333333333333', src='//speakerdeck.com/assets/embed.js')      #footdiv
+      script.speakerdeck-embed(async='async', data-id='d03e8bb09f8f0130737e3ac3cf79c5e0', data-ratio='1.33333333333333', src='//speakerdeck.com/assets/embed.js')
+      .well.span3.offset4.down
+        img(src='/NodeRel.png')
+        a(href='/NodeRel.pdf') Download the paper
+    footer        
+      #footdiv
         p
           | © 2013 FA & IA · 
           a(href='about') About 
